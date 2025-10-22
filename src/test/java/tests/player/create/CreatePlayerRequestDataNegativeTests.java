@@ -147,7 +147,7 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
     }
 
     @Test(description = "Player with incorrect password length can not be created", dataProvider = "notValidPasswordLength")
-    public void playerWithIncorrectPasswordCanNotBeCreated(int notValidPasswordLength) {
+    public void playerWithIncorrectPasswordLengthCanNotBeCreated(int notValidPasswordLength) {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         //TODO when all of these tests will work we can move newPlayer template to  @BeforeClass because it isn't created in these tests
         // so we can reuse it and reduce code duplication
@@ -157,6 +157,15 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
         PlayerSteps.createPlayerAndValidatBadRequestMessage(ADMIN_LOGIN,
                                                             newPlayer,
                                                             "some message about password length validation");
+    }
+
+    @Test(description = "Player with incorrect password can not be created")
+    public void playerWithIncorrectPasswordCanNotBeCreated() {
+        var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
+        newPlayer = PlayerCreationalHelpers.withPassword(newPlayer, Utils.getRandomString(12));
+        PlayerSteps.createPlayerAndValidatBadRequestMessage(ADMIN_LOGIN,
+                                                            newPlayer,
+                                                            "some message about password chars validation");
     }
 
     @Test(description = "Player with incorrect gender can not be created")

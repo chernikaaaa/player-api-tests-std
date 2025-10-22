@@ -13,8 +13,9 @@ public final class Utils {
     }
 
     public static String getRandomString(int length) {
-        var allowedChars =
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-"; //to do reuse alpha in other methods
+        //todo make check that at least one char and one num and one letter is present
+        //todo reuse alpha in other methods
+        var allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-";
         return IntStream.range(0, length)
                         .mapToObj(i -> String.valueOf(allowedChars.charAt(RANDOM.nextInt(allowedChars.length()))))
                         .collect(Collectors.joining());
