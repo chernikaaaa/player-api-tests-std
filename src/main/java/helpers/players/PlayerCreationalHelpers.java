@@ -4,6 +4,7 @@ package helpers.players;
 import api.player.models.Player;
 import enums.Role;
 import io.qameta.allure.Step;
+import utils.BaseUtility;
 import utils.player.PlayerUtils;
 
 import java.util.UUID;
@@ -11,7 +12,7 @@ import java.util.UUID;
 public class PlayerCreationalHelpers {
 
     private PlayerCreationalHelpers() {
-        throw new IllegalStateException("Utility class"); //TODO make baseutility and move it to it and reuse anywhere
+        BaseUtility.getException();
     }
 
     @Step("Create success random admin player")

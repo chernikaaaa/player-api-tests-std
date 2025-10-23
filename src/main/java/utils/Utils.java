@@ -9,7 +9,7 @@ public final class Utils {
     private static final Random RANDOM = new Random();
 
     private Utils() {
-        throw new IllegalStateException("Utility class");
+        BaseUtility.getException();
     }
 
     public static String getRandomString(int length) {

@@ -1,9 +1,11 @@
 package Endpoints;
 
+import utils.BaseUtility;
+
 public final class Endpoints {
 
     private Endpoints() {
-        throw new IllegalStateException("Utility class");
+        BaseUtility.getException();
     }
 
     public static final String CREATE_PLAYER = "/player/create/{editor}";

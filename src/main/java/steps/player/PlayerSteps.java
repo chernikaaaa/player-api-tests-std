@@ -7,6 +7,7 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
+import utils.BaseUtility;
 import utils.player.PlayerUtils;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 public class PlayerSteps {
 
     private PlayerSteps() {
-        throw new IllegalStateException("Utility class"); //TODO make baseutility and move it to it and reuse anywhere
+        BaseUtility.getException();
     }
 
     @Step("Create player and validate success response")

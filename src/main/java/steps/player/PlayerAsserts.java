@@ -5,13 +5,14 @@ import api.player.models.Player;
 import io.qameta.allure.Step;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
+import utils.BaseUtility;
 
 import java.util.List;
 
 public class PlayerAsserts {
 
     private PlayerAsserts() {
-        throw new IllegalStateException("Utility class");
+        BaseUtility.getException();
     }
 
     public static void assertGetAllPlayersResponse(List<AllPlayersResponse.AllPlayerResponseItem> allPlayers,

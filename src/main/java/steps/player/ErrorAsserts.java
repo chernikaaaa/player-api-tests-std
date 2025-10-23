@@ -1,11 +1,12 @@
 package steps.player;
 
 import org.testng.Assert;
+import utils.BaseUtility;
 
 public class ErrorAsserts {
 
     private ErrorAsserts() {
-        throw new IllegalStateException("Utility class");
+        BaseUtility.getException();
     }
 
     public static void assertErroMessage(String actualMessage, String expectedMessage) {

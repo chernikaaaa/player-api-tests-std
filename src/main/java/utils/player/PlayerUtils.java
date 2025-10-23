@@ -2,6 +2,7 @@ package utils.player;
 
 import api.player.models.Player;
 import enums.Gender;
+import utils.BaseUtility;
 import utils.Utils;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ public final class PlayerUtils {
     private static final Random RANDOM = new Random();
 
     private PlayerUtils() {
-        throw new IllegalStateException("Utility class");
+        BaseUtility.getException();
     }
 
     public static String getRandomIncorrectGender() {
