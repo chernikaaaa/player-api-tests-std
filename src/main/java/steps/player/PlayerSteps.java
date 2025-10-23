@@ -1,12 +1,15 @@
 package steps.player;
 
 import api.player.PlayerApi;
+import api.player.models.AllPlayersResponse;
 import api.player.models.Player;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import utils.player.PlayerUtils;
+
+import java.util.List;
 
 public class PlayerSteps {
 
@@ -49,12 +52,14 @@ public class PlayerSteps {
 
     @Step("Delete player with expected error and message")
     public static void deletePlayerWithErrorAndMessage(String editor, Integer playerId, String expectedMessage) {
-        var actualMessage = deletePlayerWithError(editor, playerId, 400)
-                .extract()
-                .response()
-                .jsonPath()
-                .getString("message");
+        var actualMessage =
+                deletePlayerWithError(editor, playerId, 400).extract().response().jsonPath().getString("message");
         Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
+    }
+
+    @Step("Get all players")
+    public static List<Player> getAllPlayers() {
+        return PlayerApi.getAll().as(AllPlayersResponse.class).players();
     }
 
     @Step("Delete player with expected error")
