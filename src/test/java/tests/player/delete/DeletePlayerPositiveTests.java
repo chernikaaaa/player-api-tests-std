@@ -8,7 +8,8 @@ public class DeletePlayerPositiveTests extends DeletePlayerBaseTest {
 
     @Test(description = "Successful delete by roles test", dataProvider = "loginAndRolesForSuccessfulDelete")
     public void successfulDeleteByRolesTest(String loginWhoDelete, Integer playerToDeleteId) {
-        PlayerSteps.deletePlayerWithError(loginWhoDelete, playerToDeleteId, "some error message");
+        PlayerSteps.deletePlayer(loginWhoDelete, playerToDeleteId);
+        //todo add check that player is really deleted in db
     }
 
     @DataProvider

@@ -14,15 +14,15 @@ public class DeletePlayerBaseTest extends BasePlayerTest {
     protected Integer userForDeleteId;
     protected Player userWhoDelete;
     protected Integer userForDelete2Id;
-    protected Integer mainSupervisorId;
+    protected Integer mainSupervisorId = 1;
 
     @BeforeClass
     @Override
     protected void setupPreconditions() {
         super.setupPreconditions();
 
-        mainSupervisorId = 1; //todo uncomment under code when roles and logins will be present in get all response
-//        PlayerApi.getAll().as(AllPlayersResponse.class).getPlayers()
+        //todo uncomment under code when roles and logins will be present in get all response
+//        mainSupervisorId = PlayerApi.getAll().as(AllPlayersResponse.class).getPlayers()
 //                                          .stream()
 //                                          .filter(player -> player.login().equals(SUPERVISOR_LOGIN))
 //                                          .findFirst()

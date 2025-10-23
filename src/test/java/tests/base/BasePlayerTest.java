@@ -7,11 +7,10 @@ import helpers.players.PlayerCreationalHelpers;
 import org.testng.annotations.BeforeClass;
 import steps.player.PlayerSteps;
 
-import java.util.stream.Stream;
-
 public class BasePlayerTest {
 
     protected Player randomAdmin;
+    protected Integer randomAdminId;
     protected Player randomUser;
     protected PlayerApi playerApi = new PlayerApi();
     protected static final String SUPERVISOR_LOGIN = "supervisor";
@@ -20,13 +19,11 @@ public class BasePlayerTest {
     @BeforeClass
     protected void setupPreconditions() {
         randomAdmin = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
+        randomAdminId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomAdmin).id();
         randomUser = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
+        PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomUser);
 
-        Stream.of(randomAdmin, randomUser).forEach(player -> {
-            PlayerSteps.createPlayer(SUPERVISOR_LOGIN, player);
-            //TODO add waiter with check db that user is created (instead I use sleep but it is a bad practice)
-        });
-
+        //TODO add waiter with check db that user is created (instead I use sleep but it is a bad practice)
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {

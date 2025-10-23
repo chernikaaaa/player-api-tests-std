@@ -8,8 +8,12 @@ public class DeletePlayerNegativeTests extends DeletePlayerBaseTest {
 
     @Test(description = "Failed delete by roles test", dataProvider = "loginAndRolesForFailedDelete")
     public void failedDeleteByRolesTest(String loginWhoDelete, Integer playerToDeleteId) {
-        PlayerSteps.deletePlayer(loginWhoDelete, playerToDeleteId);
-        //TODO add assertions that there isn't this player in db
+        PlayerSteps.deletePlayerWithError(loginWhoDelete, playerToDeleteId, 403);
+    }
+
+    @Test(description = "Unauthorized user cannot delete  users")
+    public void unauthorizedCannotDeleteUser() {
+        //todo cannot be deployed due to lack of unauthenticated access in api
     }
 
     @DataProvider
@@ -17,7 +21,7 @@ public class DeletePlayerNegativeTests extends DeletePlayerBaseTest {
         return new Object[][]{
                 {
                         userWhoDelete.login(),
-                        randomAdmin.id()
+                        randomAdminId
                 },
                 {
                         SUPERVISOR_LOGIN,

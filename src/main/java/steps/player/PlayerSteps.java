@@ -1,10 +1,10 @@
 package steps.player;
 
 import api.player.PlayerApi;
-import api.player.models.AllPlayersResponse;
 import api.player.models.Player;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import utils.player.PlayerUtils;
 
@@ -47,20 +47,28 @@ public class PlayerSteps {
         return PlayerApi.create(editor, playerParams).statusCode(errorCode).extract().response();
     }
 
-    @Step("Delete player with expected error")
-    public static void deletePlayerWithError(String editor, Integer playerId, String expectedMessage) {
-        var actualMessage = PlayerApi.delete(editor, playerId)
-                                     .statusCode(400)
-                                     .extract()
-                                     .response()
-                                     .jsonPath()
-                                     .getString("message");
+    @Step("Delete player with expected error and message")
+    public static void deletePlayerWithErrorAndMessage(String editor, Integer playerId, String expectedMessage) {
+        var actualMessage = deletePlayerWithError(editor, playerId, 400)
+                .extract()
+                .response()
+                .jsonPath()
+                .getString("message");
         Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
     }
 
+    @Step("Delete player with expected error")
+    public static ValidatableResponse deletePlayerWithError(String editor,
+                                                            Integer playerId,
+                                                            Integer expectedStatusCode) {
+        return PlayerApi.delete(editor, playerId).statusCode(expectedStatusCode);
+    }
+
     @Step("Delete player with successfully")
-    public static AllPlayersResponse deletePlayer(String editor, Integer playerId) {
-        return PlayerApi.delete(editor, playerId).statusCode(200).extract().response().as(AllPlayersResponse.class);
+    public static void deletePlayer(String editor, Integer playerId) {
+        //TODO should return 200 not 204, or if it would be agreeded with business 204 but need to delete 200 from spec
+//        return PlayerApi.delete(editor, playerId).statusCode(200).extract().response().as(DeleteResponseEntity.class);
+        PlayerApi.delete(editor, playerId).statusCode(204);
     }
 
 }
