@@ -15,4 +15,9 @@ public class GetAllPlayersPoitiveTests extends BasePlayerTest {
         PlayerAsserts.assertGetAllPlayersResponse(allPlayers, List.of(randomAdminId, randomUserId));
     }
 
+    @Test(description = "Check response template")
+    public void responseTemplateTest() {
+        //TODO
+    }
+
 }

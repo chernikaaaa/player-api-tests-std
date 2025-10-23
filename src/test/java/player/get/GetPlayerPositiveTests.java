@@ -14,4 +14,10 @@ public class GetPlayerPositiveTests extends BasePlayerTest {
     }
 
     //TODO delete 201 code mentioned in spec
+
+    @Test(description = "Check response template")
+    public void responseTemplateTest() {
+        //TODO
+    }
+
 }

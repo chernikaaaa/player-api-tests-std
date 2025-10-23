@@ -48,4 +48,9 @@ public class UpdatePlayerPositiveTests extends BasePlayerTest {
         };
     }
 
+    @Test(description = "Check response template")
+    public void responseTemplateTest() {
+        //TODO
+    }
+
 }
