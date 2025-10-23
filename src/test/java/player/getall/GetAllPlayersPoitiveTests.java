@@ -1,9 +1,9 @@
-package tests.player.getall;
+package player.getall;
 
 import org.testng.annotations.Test;
+import player.BasePlayerTest;
 import steps.player.PlayerAsserts;
 import steps.player.PlayerSteps;
-import tests.base.BasePlayerTest;
 
 import java.util.List;
 

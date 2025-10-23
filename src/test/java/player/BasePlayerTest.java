@@ -1,4 +1,4 @@
-package tests.base;
+package player;
 
 import api.player.models.Player;
 import enums.Role;

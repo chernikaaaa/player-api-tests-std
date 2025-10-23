@@ -1,13 +1,13 @@
-package tests.player.create;
+package player.create;
 
 import api.player.models.Player;
 import enums.Gender;
 import enums.Role;
+import helpers.players.PlayerCreationalHelpers;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import player.BasePlayerTest;
 import steps.player.PlayerSteps;
-import helpers.players.PlayerCreationalHelpers;
-import tests.base.BasePlayerTest;
 import utils.Utils;
 
 import java.util.UUID;

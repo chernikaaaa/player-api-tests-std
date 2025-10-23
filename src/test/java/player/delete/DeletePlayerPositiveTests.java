@@ -1,12 +1,12 @@
-package tests.player.delete;
+package player.delete;
 
 import enums.Role;
 import helpers.players.PlayerCreationalHelpers;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import player.BasePlayerTest;
 import steps.player.PlayerSteps;
-import tests.base.BasePlayerTest;
 
 public class DeletePlayerPositiveTests extends BasePlayerTest {
 

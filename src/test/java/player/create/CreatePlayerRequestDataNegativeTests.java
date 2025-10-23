@@ -1,10 +1,10 @@
-package tests.player.create;
+package player.create;
 
 import helpers.players.PlayerCreationalHelpers;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import player.BasePlayerTest;
 import steps.player.PlayerSteps;
-import tests.base.BasePlayerTest;
 import utils.Utils;
 import utils.player.PlayerUtils;
 

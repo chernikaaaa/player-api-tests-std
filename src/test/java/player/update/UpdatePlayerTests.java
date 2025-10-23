@@ -1,4 +1,4 @@
-package tests.player.update;
+package player.update;
 
 import api.player.models.Player;
 import enums.Role;
@@ -6,9 +6,9 @@ import helpers.players.PlayerCreationalHelpers;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import player.BasePlayerTest;
 import steps.player.PlayerAsserts;
 import steps.player.PlayerSteps;
-import tests.base.BasePlayerTest;
 
 public class UpdatePlayerTests extends BasePlayerTest {
 

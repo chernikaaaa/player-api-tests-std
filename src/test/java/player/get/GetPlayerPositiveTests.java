@@ -1,9 +1,9 @@
-package tests.player.get;
+package player.get;
 
 import org.testng.annotations.Test;
+import player.BasePlayerTest;
 import steps.player.PlayerAsserts;
 import steps.player.PlayerSteps;
-import tests.base.BasePlayerTest;
 
 public class GetPlayerPositiveTests extends BasePlayerTest {
 

@@ -1,7 +1,7 @@
-package tests.player.getall;
+package player.getall;
 
 import org.testng.annotations.Test;
-import tests.base.BasePlayerTest;
+import player.BasePlayerTest;
 
 public class GetAllPlayerseNegativeTests extends BasePlayerTest {
 
