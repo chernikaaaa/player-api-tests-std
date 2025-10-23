@@ -1,19 +1,21 @@
 package api;
 
 import config.Config;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import io.qameta.allure.restassured.AllureRestAssured;
 
-public class Client {
+public class BaseClient {
 
     protected static final RequestSpecification spec = new RequestSpecBuilder()
             .setBaseUri(Config.baseUrl())
             .setContentType(ContentType.JSON)
-            .log(LogDetail.ALL)
             .addFilter(new AllureRestAssured())
+            .addFilter(new RequestLoggingFilter())
+            .addFilter(new ResponseLoggingFilter())
             .build();
 
 }

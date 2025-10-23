@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
+
     private static final Properties props = new Properties();
 
     static {
@@ -21,11 +22,4 @@ public class Config {
         return System.getProperty("baseUrl", props.getProperty("baseUrl", "http://localhost:8080"));
     }
 
-    public static int connectTimeoutMs() {
-        return Integer.parseInt(props.getProperty("connectTimeout", "5000"));
-    }
-
-    public static int readTimeoutMs() {
-        return Integer.parseInt(props.getProperty("readTimeout", "10000"));
-    }
 }

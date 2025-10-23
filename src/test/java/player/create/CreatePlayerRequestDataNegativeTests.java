@@ -1,109 +1,22 @@
 package player.create;
 
+import api.player.PlayerApi;
+import enums.Role;
 import helpers.players.PlayerCreationalHelpers;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import player.BasePlayerTest;
+import steps.player.ErrorAsserts;
 import steps.player.PlayerSteps;
 import utils.Utils;
 import utils.player.PlayerUtils;
 
-public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
-//    @Test(description = "Data required in request test", dataProvider = "notValidData")
-//    public void dataRequiredInRequestTest(Integer age,
-//                                          String gender,
-//                                          String login,
-//                                          String password,
-//                                          String role,
-//                                          String screenName,
-//                                          String expectedMessage) {
-//        Map<String, ? extends Serializable> playerParams = Map.of("age",
-//                                                                  age,
-//                                                                  "gender",
-//                                                                  gender,
-//                                                                  "login",
-//                                                                  login,
-//                                                                  "password",
-//                                                                  password,
-//                                                                  "role",
-//                                                                  role,
-//                                                                  "screenName",
-//                                                                  screenName);
-//        var response = PlayerApi.create(SUPERVISOR_LOGIN, playerParams).statusCode(400).extract().response();
-//        var message = response.jsonPath().getString("message");
-//
-//        ErrorAsserts.assertErroMessage(message, expectedMessage);
-//    }
-//
-//    @DataProvider
-//    public Object[][] notValidData() {
-//        return new Object[][]{
-//                {
-//                        null,
-//                        Gender.FEMALE.getGender(),
-//                        UUID.randomUUID().toString(),
-//                        PlayerUtils.getRandomPassWithRandomLength(),
-//                        Role.USER.getRole(),
-//                        UUID.randomUUID().toString(),
-//                        "some message about age validation"
-//                },
-//                {
-//                        Utils.getRandomString(2),
-//                        Gender.FEMALE.getGender(),
-//                        UUID.randomUUID().toString(),
-//                        PlayerUtils.getRandomPassWithRandomLength(),
-//                        Role.USER.getRole(),
-//                        UUID.randomUUID().toString(),
-//                        "some message about age validation"
-//                },
-//                {
-//                        PlayerUtils.getRandomAge(),
-//                        null,
-//                        UUID.randomUUID().toString(),
-//                        PlayerUtils.getRandomPassWithRandomLength(),
-//                        Role.USER.getRole(),
-//                        UUID.randomUUID().toString(),
-//                        "some message about gender validation"
-//                },
-//                {
-//                        PlayerUtils.getRandomAge(),
-//                        Gender.FEMALE.getGender(),
-//                        null,
-//                        PlayerUtils.getRandomPassWithRandomLength(),
-//                        Role.USER.getRole(),
-//                        UUID.randomUUID().toString(),
-//                        "some message about login validation"
-//                },
-//                {
-//                        PlayerUtils.getRandomAge(),
-//                        Gender.FEMALE.getGender(),
-//                        UUID.randomUUID().toString(),
-//                        null,
-//                        Role.USER.getRole(),
-//                        UUID.randomUUID().toString(),
-//                        "some message about pass validation"
-//                },
-//                {
-//                        PlayerUtils.getRandomAge(),
-//                        Gender.FEMALE.getGender(),
-//                        UUID.randomUUID().toString(),
-//                        PlayerUtils.getRandomPassWithRandomLength(),
-//                        null,
-//                        UUID.randomUUID().toString(),
-//                        "some message about role validation"
-//                },
-//                {
-//                        PlayerUtils.getRandomAge(),
-//                        Gender.FEMALE.getGender(),
-//                        UUID.randomUUID().toString(),
-//                        PlayerUtils.getRandomPassWithRandomLength(),
-//                        Role.USER.getRole(),
-//                        null,
-//                        "some message about screenname validation"
-//                },
-//        };
-//    }
+public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
 
     @Test(description = "Supervisor can't create player with invalid age", dataProvider = "notValidAges")
     public void supervisorCanNotCreatePlayerWithInvalidAge(int notValidAge) {
@@ -188,6 +101,68 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
                         16,
                         //boundary negative age
                 },
+        };
+    }
+
+    @Test(description = "Data required in request test", dataProvider = "notValidData")
+    public void dataRequiredInRequestTest(Map<String, ? extends Serializable> data) {
+        var response = PlayerApi.create(SUPERVISOR_LOGIN, data).statusCode(404).extract().response();
+        var message = response.jsonPath().getString("message");
+        ErrorAsserts.assertErroMessage(message, "expected message");
+    }
+
+    @DataProvider
+    public Object[][] notValidData() {
+        var randomPlayerData = Map.of("age",
+                                      PlayerUtils.getRandomAge(),
+                                      "gender",
+                                      PlayerUtils.getRandomGender(),
+                                      "login",
+                                      UUID.randomUUID().toString(),
+                                      "password",
+                                      PlayerUtils.getRandomPassWithRandomLength(),
+                                      "role",
+                                      Role.USER.getRole(),
+                                      "screenName",
+                                      UUID.randomUUID().toString());
+
+        var mapWithoutAge = new HashMap<>(randomPlayerData);
+        mapWithoutAge.remove("age");
+
+        var mapWitStringAge = new HashMap<>(randomPlayerData);
+        mapWithoutAge.put("age", Utils.getRandomString(3));
+
+        var mapWithoutGender = new HashMap<>(randomPlayerData);
+        mapWithoutAge.remove("gender");
+
+        var mapWithoutLogin = new HashMap<>(randomPlayerData);
+        mapWithoutAge.remove("login");
+
+        var mapWithIntLogin = new HashMap<>(randomPlayerData);
+        mapWithoutAge.put("login", 4); //TODO add random int generation
+
+        var mapWithoutPass = new HashMap<>(randomPlayerData);
+        mapWithoutAge.remove("pass");
+
+        var mapWithoutRole = new HashMap<>(randomPlayerData);
+        mapWithoutAge.remove("role");
+
+        var mapWithoutScreenName = new HashMap<>(randomPlayerData);
+        mapWithoutAge.remove("screenName");
+
+        var mapWithNumScreenName = new HashMap<>(randomPlayerData);
+        mapWithoutAge.put("screenName", 4);  //TODO add random int generation
+
+        return new Object[][]{
+                {mapWithoutAge},
+                {mapWitStringAge},
+                {mapWithoutGender},
+                {mapWithoutRole},
+                {mapWithoutLogin},
+                {mapWithoutPass},
+                {mapWithoutScreenName},
+                {mapWithNumScreenName},
+                {mapWithIntLogin}
         };
     }
 
