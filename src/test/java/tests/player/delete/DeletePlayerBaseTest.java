@@ -11,9 +11,12 @@ public class DeletePlayerBaseTest extends BasePlayerTest {
 
     protected Integer adminForDeleteId;
     protected Integer adminForDelete2Id;
+    protected String adminForDelete2Login;
     protected Integer userForDeleteId;
     protected Player userWhoDelete;
     protected Integer userForDelete2Id;
+    protected String userForDelete2Login;
+    protected Integer randomUserId2;
     protected Integer mainSupervisorId = 1;
 
     @BeforeClass
@@ -33,7 +36,9 @@ public class DeletePlayerBaseTest extends BasePlayerTest {
         adminForDeleteId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, adminForDelete).id();
 
         var adminForDelete2 = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
-        adminForDelete2Id = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, adminForDelete2).id();
+        var adminForDelete2RespPlayer = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, adminForDelete2);
+        adminForDelete2Id = adminForDelete2RespPlayer.id();
+        adminForDelete2Login = adminForDelete2RespPlayer.login();
 
         var userForDelete = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
         userForDeleteId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userForDelete).id();
@@ -42,7 +47,12 @@ public class DeletePlayerBaseTest extends BasePlayerTest {
         PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userWhoDelete);
 
         var userForDelete2 = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
-        userForDelete2Id = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userForDelete2).id();
+        var userForDelete2RespPlayer = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userForDelete2);
+        userForDelete2Id = userForDelete2RespPlayer.id();
+        userForDelete2Login = userForDelete2RespPlayer.login();
+
+        var randomUser2 = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
+        randomUserId2 = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomUser2).id();
 
         //TODO add waiter with check db that user is created (instead I use sleep but it is a bad practice)
 

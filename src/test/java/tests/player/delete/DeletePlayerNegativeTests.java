@@ -32,8 +32,18 @@ public class DeletePlayerNegativeTests extends DeletePlayerBaseTest {
                         mainSupervisorId
                 },
                 {
+                        ADMIN_LOGIN,
+                        randomAdminId
+                        //admin cannot delete another admin
+                },
+                {
                         randomUser.login(),
                         mainSupervisorId
+                },
+                {
+                        randomUser.login(),
+                        randomUserId2
+                        //user cannot delete another user
                 },
         };
     }

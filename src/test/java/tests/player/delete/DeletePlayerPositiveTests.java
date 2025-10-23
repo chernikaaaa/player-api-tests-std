@@ -20,7 +20,7 @@ public class DeletePlayerPositiveTests extends DeletePlayerBaseTest {
                         adminForDeleteId
                 },
                 {
-                        ADMIN_LOGIN,
+                        adminForDelete2Login,
                         adminForDelete2Id
                 },
                 {
@@ -28,7 +28,7 @@ public class DeletePlayerPositiveTests extends DeletePlayerBaseTest {
                         userForDeleteId
                 },
                 {
-                        userWhoDelete.login(),
+                        userForDelete2Login,
                         userForDelete2Id
                 },
         };
