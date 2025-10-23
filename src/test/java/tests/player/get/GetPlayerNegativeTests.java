@@ -7,7 +7,7 @@ import tests.base.BasePlayerTest;
 public class GetPlayerNegativeTests extends BasePlayerTest {
 
     @Test(description = "Cannot get unexisting user")
-    public void canNotGetUnexistingTest() {
+    public void canNotGetUnExistingTest() {
         PlayerSteps.getWithErrorAndMessage(generateNextPlayerId(), "player not found error");
     }
 
