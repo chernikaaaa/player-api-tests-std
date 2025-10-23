@@ -13,19 +13,12 @@ import steps.player.PlayerSteps;
 public class UpdatePlayerTests extends BasePlayerTest {
 
     private Player randomUser2;
-    private Player supervisorToUpdate;
     private Integer randomUser2Id;
 
     @BeforeClass
     @Override
     protected void setupPreconditions() {
         super.setupPreconditions();
-
-        supervisorToUpdate =
-                PlayerCreationalHelpers.withLogin(PlayerCreationalHelpers.withId(
-                                                          PlayerCreationalHelpers.createSuccessRandomPlayer(Role.SUPERVISOR),
-                                                          mainSupervisorId),
-                                                  SUPERVISOR_LOGIN);
 
         randomUser2 = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
         randomUser2Id = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomUser2).id();
@@ -73,11 +66,6 @@ public class UpdatePlayerTests extends BasePlayerTest {
                         randomUserId,
                         randomUser
                 },
-//                {
-//                        SUPERVISOR_LOGIN,
-//                        mainSupervisorId,
-//                        supervisorToUpdate //comment this not to fail the system
-//                },
         };
     }
 
@@ -96,16 +84,6 @@ public class UpdatePlayerTests extends BasePlayerTest {
                         randomAdminId,
                         randomAdmin
                 },
-//                {
-//                        ADMIN_LOGIN,
-//                        mainSupervisorId,
-//                        supervisorToUpdate //comment this not to fail the system
-//                },
-//                {
-//                        randomUser.login(),
-//                        mainSupervisorId,
-//                        supervisorToUpdate //comment this not to fail the system
-//                },
                 {
                         randomUser.login(),
                         randomUser2Id,

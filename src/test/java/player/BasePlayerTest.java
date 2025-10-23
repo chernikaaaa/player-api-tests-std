@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 public class BasePlayerTest {
 
-    protected Integer mainSupervisorId = 1;
     protected Player randomAdmin;
     protected Integer randomAdminId;
     protected Player randomUser;
@@ -23,15 +22,6 @@ public class BasePlayerTest {
 
     @BeforeClass
     protected void setupPreconditions() {
-
-        //TODO uncomment when get all will return roles
-//        mainSupervisorId = PlayerSteps.getAllPlayers()
-//                                      .stream()
-//                                      .filter(e -> e.role().equals(Role.SUPERVISOR.getRole()))
-//                                      .findFirst()
-//                                      .orElseThrow(() -> new NoSuchElementException("Supervisor should be presented"))
-//                                      .id();
-
         randomAdmin = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         randomAdminId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomAdmin).id();
         randomUser = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
