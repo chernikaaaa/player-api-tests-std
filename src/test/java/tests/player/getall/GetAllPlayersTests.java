@@ -1,8 +1,8 @@
-package tests.player;
+package tests.player.getall;
 
-import tests.base.BasePlayerTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import tests.base.BasePlayerTest;
 
 public class GetAllPlayersTests extends BasePlayerTest {
 
@@ -13,4 +13,5 @@ public class GetAllPlayersTests extends BasePlayerTest {
         int sz = resp.jsonPath().getList("players").size();
         Assert.assertTrue(sz >= 2, "should have at least predefined users");
     }
+
 }

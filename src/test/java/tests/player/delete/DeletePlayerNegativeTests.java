@@ -3,16 +3,11 @@ package tests.player.delete;
 import api.player.models.Player;
 import enums.Role;
 import helpers.players.PlayerCreationalHelpers;
-import io.qameta.allure.Step;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import steps.player.PlayerSteps;
 import tests.base.BasePlayerTest;
-
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.stream.Collectors;
 
 public class DeletePlayerNegativeTests extends BasePlayerTest {
 
@@ -98,27 +93,6 @@ public class DeletePlayerNegativeTests extends BasePlayerTest {
     @Test(description = "Failed delete by incorrect format id test")
     public void failedDeleteByIncorrectFormatIdTest() {
         //TODO make method with inserting json to body not to model in order to use id as String
-    }
-
-    @Step("Generate next player id")
-    private static int generateNextPlayerId() {
-        var nextId = getMaxPlayerId() + 10;
-
-        while (PlayerSteps.getAllPlayers().stream().map(item -> item.id()).toList().contains(nextId)) {
-            nextId += 10;
-        }
-
-        return nextId;
-    }
-
-    @Step("Get max player id")
-    private static Integer getMaxPlayerId() {
-        return PlayerSteps.getAllPlayers()
-                          .stream()
-                          .sorted(Comparator.comparing(player -> player.id()))
-                          .collect(Collectors.toCollection(LinkedList::new))
-                          .getLast()
-                          .id();
     }
 
 }

@@ -1,14 +1,20 @@
-package tests.player;
+package tests.player.update;
 
-import tests.base.BasePlayerTest;
 import org.testng.annotations.Test;
+import tests.base.BasePlayerTest;
 
 import java.util.Map;
 import java.util.UUID;
 
-public class GetAndUpdatePlayerTests extends BasePlayerTest {
-    private String uniq(String prefix){ return prefix + UUID.randomUUID().toString().replace("-", "").substring(0,10); }
-    private String s(int v){ return String.valueOf(v); }
+public class UpdatePlayerTests extends BasePlayerTest {
+
+    private String uniq(String prefix) {
+        return prefix + UUID.randomUUID().toString().replace("-", "").substring(0, 10);
+    }
+
+    private String s(int v) {
+        return String.valueOf(v);
+    }
 
     @Test(description = "Get then update screenName as supervisor")
     public void getThenUpdate() {
@@ -47,4 +53,5 @@ public class GetAndUpdatePlayerTests extends BasePlayerTest {
 //        var upd = api.update("supervisor", id, Map.of("age", -1));
 //        Assert.assertTrue(upd.statusCode() >= 400 && upd.statusCode() < 500);
     }
+
 }

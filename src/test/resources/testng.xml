@@ -5,8 +5,8 @@
         <classes>
             <class name="tests.player.create.CreatePlayerAccessesNegativeTests"/>
             <class name="tests.player.delete.DeletePlayerPositiveTests"/>
-            <class name="tests.player.GetAndUpdatePlayerTests"/>
-            <class name="tests.player.GetAllPlayersTests"/>
+            <class name="tests.player.update.UpdatePlayerTests"/>
+            <class name="tests.player.getall.GetAllPlayersTests"/>
         </classes>
     </test>
 </suite>

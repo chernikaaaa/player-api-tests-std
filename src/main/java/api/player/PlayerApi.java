@@ -34,15 +34,13 @@ public class PlayerApi extends Client {
     }
 
     @Step("Get user by id={playerId}")
-    public Response get(long playerId) {
+    public static ValidatableResponse get(Integer playerId) {
         return given()
                 .spec(spec)
                 .body(Map.of("playerId", playerId))
                 .when()
                 .post("/player/get")
-                .then()
-                .extract()
-                .response();
+                .then();
     }
 
     @Step("Get all users")
@@ -52,7 +50,7 @@ public class PlayerApi extends Client {
     }
 
     @Step("Update user as {editor}, id={id}")
-    public Response update(String editor, long id, Map<String, ?> body) {
+    public static Response update(String editor, long id, Map<String, ?> body) {
         return given()
                 .spec(spec)
                 .pathParam("editor", editor)

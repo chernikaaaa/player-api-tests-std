@@ -4,8 +4,13 @@ import api.player.PlayerApi;
 import api.player.models.Player;
 import enums.Role;
 import helpers.players.PlayerCreationalHelpers;
+import io.qameta.allure.Step;
 import org.testng.annotations.BeforeClass;
 import steps.player.PlayerSteps;
+
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 public class BasePlayerTest {
 
@@ -29,6 +34,27 @@ public class BasePlayerTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Step("Generate next player id")
+    protected static int generateNextPlayerId() {
+        var nextId = getMaxPlayerId() + 10;
+
+        while (PlayerSteps.getAllPlayers().stream().map(item -> item.id()).toList().contains(nextId)) {
+            nextId += 10;
+        }
+
+        return nextId;
+    }
+
+    @Step("Get max player id")
+    private static Integer getMaxPlayerId() {
+        return PlayerSteps.getAllPlayers()
+                          .stream()
+                          .sorted(Comparator.comparing(player -> player.id()))
+                          .collect(Collectors.toCollection(LinkedList::new))
+                          .getLast()
+                          .id();
     }
 
 }

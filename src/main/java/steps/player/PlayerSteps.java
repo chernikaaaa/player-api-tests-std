@@ -76,4 +76,21 @@ public class PlayerSteps {
         PlayerApi.delete(editor, playerId).statusCode(204);
     }
 
+    @Step("Get player with expected error")
+    public static ValidatableResponse getWithError(Integer playerId,
+                                                   Integer expectedStatusCode) {
+        return PlayerApi.get(playerId).statusCode(expectedStatusCode);
+    }
+
+    @Step("Get player with expected error and message")
+    public static void getWithErrorAndMessage(Integer playerId, String expectedMessage) {
+        var actualMessage = getWithError(playerId, 400).extract().response().jsonPath().getString("message");
+        Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
+    }
+
+    @Step("Get player with successfully")
+    public static void get(Integer playerId) {
+        PlayerApi.get(playerId).statusCode(200);
+    }
+
 }
