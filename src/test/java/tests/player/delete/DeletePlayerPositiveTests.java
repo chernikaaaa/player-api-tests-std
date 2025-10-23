@@ -1,15 +1,14 @@
 package tests.player.delete;
 
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import steps.player.PlayerSteps;
 
 public class DeletePlayerPositiveTests extends DeletePlayerBaseTest {
 
     @Test(description = "Successful delete by roles test", dataProvider = "loginAndRolesForSuccessfulDelete")
     public void successfulDeleteByRolesTest(String loginWhoDelete, Integer playerToDeleteId) {
-        var resp = playerApi.delete(loginWhoDelete, playerToDeleteId);
-        Assert.assertTrue(resp.statusCode() == 400, "delete status");
+        PlayerSteps.deletePlayerWithError(loginWhoDelete, playerToDeleteId, "some error message");
     }
 
     @DataProvider

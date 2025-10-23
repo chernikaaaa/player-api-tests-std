@@ -31,12 +31,16 @@ public class DeletePlayerBaseTest extends BasePlayerTest {
 
         var adminForDelete = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         adminForDeleteId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, adminForDelete).id();
+
         var adminForDelete2 = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         adminForDelete2Id = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, adminForDelete2).id();
+
         var userForDelete = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
         userForDeleteId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userForDelete).id();
+
         userWhoDelete = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
-        PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userWhoDelete).id();
+        PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userWhoDelete);
+
         var userForDelete2 = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
         userForDelete2Id = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userForDelete2).id();
 

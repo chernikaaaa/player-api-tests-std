@@ -23,16 +23,14 @@ public class PlayerApi extends Client {
     }
 
     @Step("Delete user as {editor}, id={playerId}")
-    public Response delete(String editor, long playerId) {
+    public static ValidatableResponse delete(String editor, Integer playerId) {
         return given()
                 .spec(spec)
                 .pathParam("editor", editor)
                 .body(Map.of("playerId", playerId))
                 .when()
                 .delete("/player/delete/{editor}")
-                .then()
-                .extract()
-                .response();
+                .then();
     }
 
     @Step("Get user by id={playerId}")

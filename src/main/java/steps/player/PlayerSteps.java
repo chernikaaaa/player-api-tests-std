@@ -1,9 +1,11 @@
 package steps.player;
 
 import api.player.PlayerApi;
+import api.player.models.AllPlayersResponse;
 import api.player.models.Player;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import utils.player.PlayerUtils;
 
 public class PlayerSteps {
@@ -43,6 +45,22 @@ public class PlayerSteps {
     public static Response createPlayerWithError(String editor, Player newPlayer, int errorCode) {
         var playerParams = PlayerUtils.buildMapParamsFromPlayerObject(newPlayer);
         return PlayerApi.create(editor, playerParams).statusCode(errorCode).extract().response();
+    }
+
+    @Step("Delete player with expected error")
+    public static void deletePlayerWithError(String editor, Integer playerId, String expectedMessage) {
+        var actualMessage = PlayerApi.delete(editor, playerId)
+                                     .statusCode(400)
+                                     .extract()
+                                     .response()
+                                     .jsonPath()
+                                     .getString("message");
+        Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
+    }
+
+    @Step("Delete player with successfully")
+    public static AllPlayersResponse deletePlayer(String editor, Integer playerId) {
+        return PlayerApi.delete(editor, playerId).statusCode(200).extract().response().as(AllPlayersResponse.class);
     }
 
 }
