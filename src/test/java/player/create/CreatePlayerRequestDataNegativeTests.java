@@ -105,8 +105,8 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
         };
     }
 
-    @Test(description = "Data required in request test", dataProvider = "notValidData")
-    public void dataRequiredInRequestTest(Map<String, ? extends Serializable> data) {
+    @Test(description = "Create failed because of incorrect data", dataProvider = "notValidData")
+    public void createFailedBecauseOfIncorrectDataTest(Map<String, ? extends Serializable> data) {
         var response = PlayerApi.create(SUPERVISOR_LOGIN, data).statusCode(404).extract().response();
         var message = response.jsonPath().getString("message");
         ErrorAsserts.assertErrorMessage(message, "expected message");
