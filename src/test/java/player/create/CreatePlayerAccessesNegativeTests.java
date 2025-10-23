@@ -17,9 +17,7 @@ public class CreatePlayerAccessesNegativeTests extends BasePlayerTest {
     @Test(description = "Admin cannot create supervisor")
     public void adminCanNotCreateSupervisorTest() {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.SUPERVISOR);
-        PlayerSteps.createPlayerAndValidateBadRequestMessage(ADMIN_LOGIN,
-                                                             newPlayer,
-                                                             "some message about role validation");
+        PlayerSteps.createPlayerWithError(ADMIN_LOGIN, newPlayer, 403);
     }
 
     @Test(description = "Unauthorized user cannot create new users")

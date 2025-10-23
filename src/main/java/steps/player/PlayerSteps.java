@@ -41,12 +41,33 @@ public class PlayerSteps {
         return PlayerApi.update(editor, id, playerParams).statusCode(200).extract().as(Player.class);
     }
 
-    @Step("Create player and validate bad request")
+    @Step("Update player failed with error")
+    public static ValidatableResponse updatePlayerFailedWithError(String editor,
+                                                                  Integer id,
+                                                                  Player udpatedPlayer,
+                                                                  Integer expectedStatusCode) {
+        var playerParams = PlayerUtils.buildMapParamsFromPlayerObject(udpatedPlayer);
+        return PlayerApi.update(editor, id, playerParams).statusCode(expectedStatusCode);
+    }
+
+    //TODO uncomment when 400 code and processing of data errors will be implemented
+//    @Step("Update player failed with error 400 and message")
+//    public static void updatePlayerFailedWithErrorAndMessage(String editor,
+//                                                             Integer id,
+//                                                             Player udpatedPlayer,
+//                                                             String errorMessage) {
+//        var response = updatePlayerFailedWithError(editor, id, udpatedPlayer, 400);
+//        var message = response.extract().jsonPath().getString(MESSAGE);
+//        ErrorAsserts.assertErrorMessage(message, errorMessage);
+//    }
+
+    //400 error isn't implemented in doc, but we should handle incorrect data
+    @Step("Create player and validate bad request with error 400 and message")
     public static void createPlayerAndValidateBadRequestMessage(String editor,
                                                                 Player newPlayer,
                                                                 String expectedMessage) {
-        var response = createPlayerWithError(editor, newPlayer, 404);
-        // but in doc we don't have 404 error, but we should handle incorrect data,
+        var response = createPlayerWithError(editor, newPlayer, 400);
+        // but in doc we don't have 400 error, but we should handle incorrect data,
         var message = response.jsonPath().getString(MESSAGE);
         ErrorAsserts.assertErrorMessage(message, expectedMessage);
     }
@@ -57,13 +78,11 @@ public class PlayerSteps {
         return PlayerApi.create(editor, playerParams).statusCode(errorCode).extract().response();
     }
 
-    @Step("Delete player with expected error and message")
+    //400 error isn't implemented in doc, but we should handle incorrect data
+    @Step("Delete player with expected error 400 and message")
     public static void deletePlayerWithErrorAndMessage(String editor, Integer playerId, String expectedMessage) {
-        var actualMessage = deletePlayerWithError(editor, playerId, 404)
-                .extract()
-                .response()
-                .jsonPath()
-                .getString(MESSAGE);
+        var actualMessage =
+                deletePlayerWithError(editor, playerId, 400).extract().response().jsonPath().getString(MESSAGE);
         Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
     }
 
@@ -87,14 +106,14 @@ public class PlayerSteps {
     }
 
     @Step("Get player with expected error")
-    public static ValidatableResponse getPlayerWithError(Integer playerId,
-                                                         Integer expectedStatusCode) {
+    public static ValidatableResponse getPlayerWithError(Integer playerId, Integer expectedStatusCode) {
         return PlayerApi.get(playerId).statusCode(expectedStatusCode);
     }
 
-    @Step("Get player with expected error and message")
+    //400 error isn't implemented in doc, but we should handle incorrect data
+    @Step("Get player with expected error 400 and message")
     public static void getPlayerWithErrorAndMessage(Integer playerId, String expectedMessage) {
-        var actualMessage = getPlayerWithError(playerId, 404).extract().response().jsonPath().getString(MESSAGE);
+        var actualMessage = getPlayerWithError(playerId, 400).extract().response().jsonPath().getString(MESSAGE);
         Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
     }
 

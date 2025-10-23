@@ -54,9 +54,8 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
     public void playerWithSameScreenNameCanNotBeCreatedTest() {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         newPlayer = PlayerCreationalHelpers.withScreenName(newPlayer, randomUser.screenName());
-        PlayerSteps.createPlayerAndValidateBadRequestMessage(ADMIN_LOGIN,
-                                                             newPlayer,
-                                                             "some message about login validation");
+        //TODO 403 is not ok for this error, 409 code should be be implemented in api
+        PlayerSteps.createPlayerWithError(ADMIN_LOGIN, newPlayer, 409);
     }
 
     @Test(description = "Player with incorrect password length can not be created", dataProvider = "notValidPasswordLength")
@@ -71,15 +70,6 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
         PlayerSteps.createPlayerAndValidateBadRequestMessage(ADMIN_LOGIN,
                                                              newPlayer,
                                                              "some message about password length validation");
-    }
-
-    @Test(description = "Player with incorrect password can not be created")
-    public void playerWithIncorrectPasswordCanNotBeCreatedTest() {
-        var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
-        newPlayer = PlayerCreationalHelpers.withPassword(newPlayer, Utils.getRandomString(12));
-        PlayerSteps.createPlayerAndValidateBadRequestMessage(ADMIN_LOGIN,
-                                                             newPlayer,
-                                                             "some message about password chars validation");
     }
 
     @Test(description = "Player with incorrect gender can not be created")

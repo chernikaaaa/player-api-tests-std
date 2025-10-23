@@ -61,6 +61,16 @@ public class PlayerCreationalHelpers {
                           player.screenName());
     }
 
+    public static Player withId(Player player, Integer id) {
+        return new Player(player.age(),
+                          player.gender(),
+                          id,
+                          player.login(),
+                          player.password(),
+                          player.role(),
+                          player.screenName());
+    }
+
     public static Player withPassword(Player player, String password) {
         return new Player(player.age(),
                           player.gender(),
