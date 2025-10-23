@@ -1,6 +1,6 @@
 package player.get;
 
-import api.player.PlayerApi;
+import api.PlayerApi;
 import org.testng.annotations.Test;
 import player.BasePlayerTest;
 import steps.player.PlayerSteps;

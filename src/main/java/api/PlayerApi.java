@@ -1,7 +1,6 @@
-package api.player;
+package api;
 
 import Endpoints.Endpoints;
-import api.BaseClient;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;

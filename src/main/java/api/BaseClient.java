@@ -10,7 +10,7 @@ import io.restassured.specification.RequestSpecification;
 
 public class BaseClient {
 
-    protected static final RequestSpecification spec = new RequestSpecBuilder()
+    public static final RequestSpecification spec = new RequestSpecBuilder()
             .setBaseUri(Config.baseUrl())
             .setContentType(ContentType.JSON)
             .addFilter(new AllureRestAssured())

@@ -1,6 +1,6 @@
 package player.create;
 
-import api.player.PlayerApi;
+import api.PlayerApi;
 import enums.Role;
 import helpers.players.PlayerCreationalHelpers;
 import org.testng.annotations.DataProvider;

@@ -1,6 +1,6 @@
 package steps.player;
 
-import api.player.PlayerApi;
+import api.PlayerApi;
 import api.player.models.AllPlayersResponse;
 import api.player.models.Player;
 import io.qameta.allure.Step;
