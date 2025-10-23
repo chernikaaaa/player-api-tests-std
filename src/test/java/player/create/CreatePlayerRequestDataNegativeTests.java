@@ -157,6 +157,13 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
         };
     }
 
+    @Test(description = "Failed create player with non-existing editor")
+    public void failedCreatePlayerWithNonExistingEditorTest() {
+        var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
+        //here should be 404 not 403 because user with such login does not exist. 403 when exist but doesn't have rights
+        PlayerSteps.createPlayerWithError(UUID.randomUUID().toString(), newPlayer, 404);
+    }
+
     @Test(description = "Check response template")
     public void responseTemplateTest() {
         //TODO

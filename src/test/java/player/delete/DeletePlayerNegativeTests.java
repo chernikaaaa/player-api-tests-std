@@ -75,13 +75,13 @@ public class DeletePlayerNegativeTests extends BasePlayerTest {
 
     @Test(description = "Unauthorized user cannot delete  users")
     public void unauthorizedCannotDeleteUserTest() {
-        //TODO cannot be deployed due to lack of unauthenticated access in api
+        //TODO cannot be deployed due to lack of unauthenticated access in api //401
     }
 
     @Test(description = "Failed delete by incorrect id test")
     public void failedDeleteByIncorrectIdTest() {
-        //TODO uncomment this when 404 code will be handled in api
-//        PlayerSteps.deletePlayerWithErrorAndMessage(SUPERVISOR_LOGIN, generateNextPlayerId(), "Invalid player ID");
+        //will work  when 404 code will be handled in api
+        PlayerSteps.deletePlayerWithErrorAndMessage(SUPERVISOR_LOGIN, generateNextPlayerId(), "Invalid player ID");
     }
 
     @Test(description = "Failed delete by incorrect format id test")

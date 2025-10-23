@@ -3,6 +3,7 @@ package api.player;
 import Endpoints.Endpoints;
 import api.BaseClient;
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +51,15 @@ public class PlayerApi extends BaseClient {
                 .when()
                 .post(Endpoints.GET_PLAYER)
                 .then();
+    }
+
+    @Step("Get user without body")
+    public static Response getWithoutBody() {
+        log.info("Getting without body");
+        return given()
+                .spec(spec)
+                .when()
+                .post(Endpoints.GET_PLAYER);
     }
 
     @Step("Get all users")
