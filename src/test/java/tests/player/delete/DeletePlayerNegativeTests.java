@@ -1,15 +1,52 @@
 package tests.player.delete;
 
+import api.player.models.Player;
+import enums.Role;
+import helpers.players.PlayerCreationalHelpers;
 import io.qameta.allure.Step;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import steps.player.PlayerSteps;
+import tests.base.BasePlayerTest;
 
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
-public class DeletePlayerNegativeTests extends DeletePlayerBaseTest {
+public class DeletePlayerNegativeTests extends BasePlayerTest {
+
+    private Player userWhoDelete;
+    private Integer randomUserId2;
+    private Integer mainSupervisorId = 1;
+
+    @BeforeClass
+    @Override
+    protected void setupPreconditions() {
+        super.setupPreconditions();
+
+        //todo uncomment under code when roles and logins will be present in get all response
+//        mainSupervisorId = PlayerApi.getAll().as(AllPlayersResponse.class).getPlayers()
+//                                          .stream()
+//                                          .filter(player -> player.login().equals(SUPERVISOR_LOGIN))
+//                                          .findFirst()
+//                                          .orElseThrow(() -> new NoSuchElementException("No supervisor found"))
+//                                          .id();
+
+        userWhoDelete = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
+        PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userWhoDelete);
+
+        var randomUser2 = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
+        randomUserId2 = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomUser2).id();
+
+        //TODO add waiter with check db that user is created (instead I use sleep but it is a bad practice)
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Test(description = "Failed delete by roles test", dataProvider = "loginAndRolesForFailedDelete")
     public void failedDeleteByRolesTest(String loginWhoDelete, Integer playerToDeleteId) {

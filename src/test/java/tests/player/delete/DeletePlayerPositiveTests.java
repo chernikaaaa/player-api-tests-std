@@ -1,10 +1,43 @@
 package tests.player.delete;
 
+import enums.Role;
+import helpers.players.PlayerCreationalHelpers;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import steps.player.PlayerSteps;
+import tests.base.BasePlayerTest;
 
-public class DeletePlayerPositiveTests extends DeletePlayerBaseTest {
+public class DeletePlayerPositiveTests extends BasePlayerTest {
+
+    private Integer adminForDeleteId;
+    private Integer adminForDelete2Id;
+    private String adminForDelete2Login;
+    private Integer userForDeleteId;
+    private Integer userForDelete2Id;
+    private String userForDelete2Login;
+
+    @BeforeClass
+    @Override
+    protected void setupPreconditions() {
+        super.setupPreconditions();
+
+        var adminForDelete = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
+        adminForDeleteId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, adminForDelete).id();
+
+        var adminForDelete2 = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
+        var adminForDelete2RespPlayer = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, adminForDelete2);
+        adminForDelete2Id = adminForDelete2RespPlayer.id();
+        adminForDelete2Login = adminForDelete2RespPlayer.login();
+
+        var userForDelete = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
+        userForDeleteId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userForDelete).id();
+
+        var userForDelete2 = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
+        var userForDelete2RespPlayer = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userForDelete2);
+        userForDelete2Id = userForDelete2RespPlayer.id();
+        userForDelete2Login = userForDelete2RespPlayer.login();
+    }
 
     @Test(description = "Successful delete by roles test", dataProvider = "loginAndRolesForSuccessfulDelete")
     public void successfulDeleteByRolesTest(String loginWhoDelete, Integer playerToDeleteId) {
