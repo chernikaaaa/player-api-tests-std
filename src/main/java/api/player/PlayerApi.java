@@ -48,7 +48,7 @@ public class PlayerApi extends Client {
     }
 
     @Step("Get all users")
-    public Response getAll() {
+    public static Response getAll() {
         return given()
                 .spec(spec).when().get("/player/get/all").then().extract().response();
     }

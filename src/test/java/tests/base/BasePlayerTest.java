@@ -6,9 +6,7 @@ import enums.Role;
 import helpers.players.PlayerCreationalHelpers;
 import org.testng.annotations.BeforeClass;
 import steps.player.PlayerSteps;
-import utils.player.PlayerUtils;
 
-import java.util.UUID;
 import java.util.stream.Stream;
 
 public class BasePlayerTest {
@@ -20,15 +18,8 @@ public class BasePlayerTest {
     protected static final String ADMIN_LOGIN = "admin";
 
     @BeforeClass
-    public void setupPreconditions() {
-        randomAdmin = new Player(PlayerUtils.getRandomAge(),
-                                 PlayerUtils.getRandomGender(),
-                                 null,
-                                 UUID.randomUUID().toString(),
-                                 PlayerUtils.getRandomPassWithRandomLength(),
-                                 Role.ADMIN.getRole(),
-                                 UUID.randomUUID().toString());
-
+    protected void setupPreconditions() {
+        randomAdmin = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         randomUser = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
 
         Stream.of(randomAdmin, randomUser).forEach(player -> {
