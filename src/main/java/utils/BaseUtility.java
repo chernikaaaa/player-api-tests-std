@@ -7,7 +7,7 @@ public final class BaseUtility {
     }
 
     public static void getException() {
-        BaseUtility.getException();
+        throw new IllegalStateException("Utility class");
     }
 
 }

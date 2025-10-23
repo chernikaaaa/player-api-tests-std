@@ -56,18 +56,15 @@ public class PlayerAsserts {
     }
 
     private static void assertThereAreNotDuplicatedScreenNameInPlayers(List<AllPlayersResponse.AllPlayerResponseItem> allPlayers) {
-        var hasDuplicateScreenNames = allPlayers.stream()
-                                                .map(AllPlayersResponse.AllPlayerResponseItem::screenName)
-                                                .distinct()
-                                                .count() != allPlayers.size();
+        var hasDuplicateScreenNames =
+                allPlayers.stream().map(AllPlayersResponse.AllPlayerResponseItem::screenName).distinct().count()
+                        != allPlayers.size();
         Assert.assertFalse(hasDuplicateScreenNames, "Duplicate player screen names should not be found");
     }
 
     private static void assertThereAreNotDuplicatedIdsInPlayers(List<AllPlayersResponse.AllPlayerResponseItem> allPlayers) {
-        var hasDuplicateIds = allPlayers.stream()
-                                        .map(AllPlayersResponse.AllPlayerResponseItem::id)
-                                        .distinct()
-                                        .count() != allPlayers.size();
+        var hasDuplicateIds = allPlayers.stream().map(AllPlayersResponse.AllPlayerResponseItem::id).distinct().count()
+                != allPlayers.size();
         Assert.assertFalse(hasDuplicateIds, "Duplicate player ids should not be found");
     }
 
@@ -81,8 +78,11 @@ public class PlayerAsserts {
     private static void assertExpectedPlayersFoundInList(List<AllPlayersResponse.AllPlayerResponseItem> allPlayers,
                                                          List<Integer> expectedPlayerIds) {
         var playerIds = allPlayers.stream().map(AllPlayersResponse.AllPlayerResponseItem::id).toList();
-        Assert.assertTrue(playerIds.containsAll(expectedPlayerIds),
-                          "Player ids from get all list should contain created players");
+        SoftAssert softAssert = new SoftAssert();
+        expectedPlayerIds.forEach(expectedId -> softAssert.assertTrue(playerIds.contains(expectedId),
+                                                                      "Player ids from get all list should contain created player with id: "
+                                                                              + expectedId));
+        softAssert.assertAll();
     }
 
 }

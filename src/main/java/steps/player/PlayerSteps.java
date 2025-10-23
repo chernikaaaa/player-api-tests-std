@@ -14,6 +14,8 @@ import java.util.List;
 
 public class PlayerSteps {
 
+    private static final String MESSAGE = "message";
+
     private PlayerSteps() {
         BaseUtility.getException();
     }
@@ -44,7 +46,7 @@ public class PlayerSteps {
                                                                 String expectedMessage) {
         var response = createPlayerWithError(editor, newPlayer, 404);
         // but in doc we don't have 404 error, but we should handle incorrect data,
-        var message = response.jsonPath().getString("message");
+        var message = response.jsonPath().getString(MESSAGE);
         ErrorAsserts.assertErrorMessage(message, expectedMessage);
     }
 
@@ -60,7 +62,7 @@ public class PlayerSteps {
                 .extract()
                 .response()
                 .jsonPath()
-                .getString("message");
+                .getString(MESSAGE);
         Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
     }
 
@@ -91,7 +93,7 @@ public class PlayerSteps {
 
     @Step("Get player with expected error and message")
     public static void getPlayerWithErrorAndMessage(Integer playerId, String expectedMessage) {
-        var actualMessage = getPlayerWithError(playerId, 404).extract().response().jsonPath().getString("message");
+        var actualMessage = getPlayerWithError(playerId, 404).extract().response().jsonPath().getString(MESSAGE);
         Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
     }
 

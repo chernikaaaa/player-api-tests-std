@@ -1,5 +1,7 @@
 package config;
 
+import utils.BaseUtility;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -7,6 +9,10 @@ import java.util.Properties;
 public class Config {
 
     private static final Properties props = new Properties();
+
+    private Config() {
+        BaseUtility.getException();
+    }
 
     static {
         try (InputStream is = Config.class.getClassLoader().getResourceAsStream("application.properties")) {
