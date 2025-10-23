@@ -109,9 +109,9 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
     public void supervisorCanNotCreatePlayerWithInvalidAge(int notValidAge) {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         newPlayer = PlayerCreationalHelpers.withAge(newPlayer, notValidAge);
-        PlayerSteps.createPlayerAndValidatBadRequestMessage(SUPERVISOR_LOGIN,
-                                                            newPlayer,
-                                                            "some message about age validation");
+        PlayerSteps.createPlayerAndValidateBadRequestMessage(SUPERVISOR_LOGIN,
+                                                             newPlayer,
+                                                             "some message about age validation");
     }
 
     @DataProvider
@@ -132,18 +132,18 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
     public void playerWithSameLoginCanNotBeCreated() {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         newPlayer = PlayerCreationalHelpers.withLogin(newPlayer, ADMIN_LOGIN);
-        PlayerSteps.createPlayerAndValidatBadRequestMessage(ADMIN_LOGIN,
-                                                            newPlayer,
-                                                            "some message about login validation");
+        PlayerSteps.createPlayerAndValidateBadRequestMessage(ADMIN_LOGIN,
+                                                             newPlayer,
+                                                             "some message about login validation");
     }
 
     @Test(description = "Player with same screenname can not be created")
     public void playerWithSameScreenNameCanNotBeCreated() {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         newPlayer = PlayerCreationalHelpers.withScreenName(newPlayer, randomUser.screenName());
-        PlayerSteps.createPlayerAndValidatBadRequestMessage(ADMIN_LOGIN,
-                                                            newPlayer,
-                                                            "some message about login validation");
+        PlayerSteps.createPlayerAndValidateBadRequestMessage(ADMIN_LOGIN,
+                                                             newPlayer,
+                                                             "some message about login validation");
     }
 
     @Test(description = "Player with incorrect password length can not be created", dataProvider = "notValidPasswordLength")
@@ -154,27 +154,27 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
         newPlayer = PlayerCreationalHelpers.withPassword(newPlayer,
                                                          Utils.getRandomStringWithLettersAndNumbers(
                                                                  notValidPasswordLength));
-        PlayerSteps.createPlayerAndValidatBadRequestMessage(ADMIN_LOGIN,
-                                                            newPlayer,
-                                                            "some message about password length validation");
+        PlayerSteps.createPlayerAndValidateBadRequestMessage(ADMIN_LOGIN,
+                                                             newPlayer,
+                                                             "some message about password length validation");
     }
 
     @Test(description = "Player with incorrect password can not be created")
     public void playerWithIncorrectPasswordCanNotBeCreated() {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         newPlayer = PlayerCreationalHelpers.withPassword(newPlayer, Utils.getRandomString(12));
-        PlayerSteps.createPlayerAndValidatBadRequestMessage(ADMIN_LOGIN,
-                                                            newPlayer,
-                                                            "some message about password chars validation");
+        PlayerSteps.createPlayerAndValidateBadRequestMessage(ADMIN_LOGIN,
+                                                             newPlayer,
+                                                             "some message about password chars validation");
     }
 
     @Test(description = "Player with incorrect gender can not be created")
     public void playerWithIncorrectGenderCanNotBeCreated() {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         newPlayer = PlayerCreationalHelpers.withGender(newPlayer, PlayerUtils.getRandomIncorrectGender());
-        PlayerSteps.createPlayerAndValidatBadRequestMessage(ADMIN_LOGIN,
-                                                            newPlayer,
-                                                            "some message about password length validation");
+        PlayerSteps.createPlayerAndValidateBadRequestMessage(ADMIN_LOGIN,
+                                                             newPlayer,
+                                                             "some message about password length validation");
     }
 
     @DataProvider

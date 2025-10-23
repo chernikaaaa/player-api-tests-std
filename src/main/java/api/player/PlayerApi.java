@@ -44,9 +44,8 @@ public class PlayerApi extends Client {
     }
 
     @Step("Get all users")
-    public static Response getAll() {
-        return given()
-                .spec(spec).when().get("/player/get/all").then().extract().response();
+    public static ValidatableResponse getAll() {
+        return given().spec(spec).when().get("/player/get/all").then();
     }
 
     @Step("Update user as {editor}, id={id}")

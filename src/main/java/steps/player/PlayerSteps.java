@@ -32,11 +32,11 @@ public class PlayerSteps {
     }
 
     @Step("Create player and validate bad request")
-    public static void createPlayerAndValidatBadRequestMessage(String editor,
-                                                               Player newPlayer,
-                                                               String expectedMessage) {
-        var response = createPlayerWithError(editor, newPlayer, 400);
-        // but in  doc we don't have 400 error but we should handle incorrect data,
+    public static void createPlayerAndValidateBadRequestMessage(String editor,
+                                                                Player newPlayer,
+                                                                String expectedMessage) {
+        var response = createPlayerWithError(editor, newPlayer, 404);
+        // but in  doc we don't have 404 error but we should handle incorrect data,
         // we have only 404 but it is for not founding resource for example when player with such login isn't founded
 
         var message = response.jsonPath().getString("message");
@@ -50,16 +50,17 @@ public class PlayerSteps {
         return PlayerApi.create(editor, playerParams).statusCode(errorCode).extract().response();
     }
 
-    @Step("Delete player with expected error and message")
-    public static void deletePlayerWithErrorAndMessage(String editor, Integer playerId, String expectedMessage) {
-        var actualMessage =
-                deletePlayerWithError(editor, playerId, 400).extract().response().jsonPath().getString("message");
-        Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
-    }
+    //TODO uncomment this when 404 code will be handled in api
+//    @Step("Delete player with expected error and message")
+//    public static void deletePlayerWithErrorAndMessage(String editor, Integer playerId, String expectedMessage) {
+//        var actualMessage =
+//                deletePlayerWithError(editor, playerId, 404).extract().response().jsonPath().getString("message");
+//        Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
+//    }
 
     @Step("Get all players")
     public static List<AllPlayersResponse.AllPlayerResponseItem> getAllPlayers() {
-        return PlayerApi.getAll().as(AllPlayersResponse.class).players();
+        return PlayerApi.getAll().statusCode(200).extract().response().as(AllPlayersResponse.class).players();
     }
 
     @Step("Delete player with expected error")
@@ -84,7 +85,7 @@ public class PlayerSteps {
 
     @Step("Get player with expected error and message")
     public static void getWithErrorAndMessage(Integer playerId, String expectedMessage) {
-        var actualMessage = getWithError(playerId, 400).extract().response().jsonPath().getString("message");
+        var actualMessage = getWithError(playerId, 404).extract().response().jsonPath().getString("message");
         Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
     }
 

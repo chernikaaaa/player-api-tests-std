@@ -17,6 +17,7 @@ public class BasePlayerTest {
     protected Player randomAdmin;
     protected Integer randomAdminId;
     protected Player randomUser;
+    protected Integer randomUserId;
     protected PlayerApi playerApi = new PlayerApi();
     protected static final String SUPERVISOR_LOGIN = "supervisor";
     protected static final String ADMIN_LOGIN = "admin";
@@ -26,7 +27,7 @@ public class BasePlayerTest {
         randomAdmin = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         randomAdminId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomAdmin).id();
         randomUser = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
-        PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomUser);
+        randomUserId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomUser).id();
 
         //TODO add waiter with check db that user is created (instead I use sleep but it is a bad practice)
         try {
