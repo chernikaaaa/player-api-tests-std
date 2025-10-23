@@ -15,11 +15,11 @@ public class PlayerApi extends BaseClient {
 
     private static final String EDITOR_PARAM = "editor";
     private static final String PLAYER_ID = "playerId";
-    private static final Logger log = LoggerFactory.getLogger(PlayerApi.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PlayerApi.class);
 
     @Step("Create user as {editor}")
     public static ValidatableResponse create(String editor, Map<String, ?> queryParams) {
-        log.info("Creating user as {}, with params: {}", editor, queryParams);
+        LOG.info("Creating user as {}, with params: {}", editor, queryParams);
         return given()
                 .spec(spec)
                 .pathParam(EDITOR_PARAM, editor)
@@ -31,7 +31,7 @@ public class PlayerApi extends BaseClient {
 
     @Step("Delete user as {editor}, id={playerId}")
     public static ValidatableResponse delete(String editor, Integer playerId) {
-        log.info("Deleting user as {}, id={}", editor, playerId);
+        LOG.info("Deleting user as {}, id={}", editor, playerId);
         return given()
                 .spec(spec)
                 .pathParam(EDITOR_PARAM, editor)
@@ -43,7 +43,7 @@ public class PlayerApi extends BaseClient {
 
     @Step("Get user by id={playerId}")
     public static ValidatableResponse get(Integer playerId) {
-        log.info("Getting user by id={}", playerId);
+        LOG.info("Getting user by id={}", playerId);
         return given()
                 .spec(spec)
                 .body(Map.of(PLAYER_ID, playerId))
@@ -54,7 +54,7 @@ public class PlayerApi extends BaseClient {
 
     @Step("Get user without body")
     public static Response getWithoutBody() {
-        log.info("Getting without body");
+        LOG.info("Getting without body");
         return given()
                 .spec(spec)
                 .when()
@@ -63,13 +63,13 @@ public class PlayerApi extends BaseClient {
 
     @Step("Get all users")
     public static ValidatableResponse getAll() {
-        log.info("Getting all users");
+        LOG.info("Getting all users");
         return given().spec(spec).when().get("/player/get/all").then();
     }
 
     @Step("Update user as {editor}, id={id}")
     public static ValidatableResponse update(String editor, Integer id, Map<String, ?> body) {
-        log.info("Updating user as {}, id={}, body={}", editor, id, body);
+        LOG.info("Updating user as {}, id={}, body={}", editor, id, body);
         return given()
                 .spec(spec)
                 .pathParam(EDITOR_PARAM, editor)
