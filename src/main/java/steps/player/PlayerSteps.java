@@ -21,8 +21,8 @@ public class PlayerSteps {
     public static void createPlayerAndValidateSuccessResponse(String editor, Player newPlayer) {
         var createdPlayer = createPlayer(editor, newPlayer);
 
+        PlayerAsserts.assertPlayerId(createdPlayer, newPlayer);
         PlayerAsserts.assertPlayer(createdPlayer, newPlayer);
-        //TODO add check that id isnot in all players list
     }
 
     @Step("Create player") //TODO add step more detailed description
@@ -89,8 +89,8 @@ public class PlayerSteps {
     }
 
     @Step("Get player with successfully")
-    public static void get(Integer playerId) {
-        PlayerApi.get(playerId).statusCode(200);
+    public static Player get(Integer playerId) {
+        return PlayerApi.get(playerId).statusCode(200).extract().response().as(Player.class);
     }
 
 }
