@@ -22,8 +22,10 @@ public class UpdatePlayerTests extends BasePlayerTest {
         super.setupPreconditions();
 
         supervisorToUpdate =
-                PlayerCreationalHelpers.withId(PlayerCreationalHelpers.createSuccessRandomPlayer(Role.SUPERVISOR),
-                                               mainSupervisorId);
+                PlayerCreationalHelpers.withLogin(PlayerCreationalHelpers.withId(
+                                                          PlayerCreationalHelpers.createSuccessRandomPlayer(Role.SUPERVISOR),
+                                                          mainSupervisorId),
+                                                  SUPERVISOR_LOGIN);
 
         randomUser2 = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
         randomUser2Id = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomUser2).id();
