@@ -13,12 +13,17 @@ import tests.base.BasePlayerTest;
 public class UpdatePlayerTests extends BasePlayerTest {
 
     private Player randomUser2;
+    private Player supervisorToUpdate;
     private Integer randomUser2Id;
 
     @BeforeClass
     @Override
     protected void setupPreconditions() {
         super.setupPreconditions();
+
+        supervisorToUpdate =
+                PlayerCreationalHelpers.withId(PlayerCreationalHelpers.createSuccessRandomPlayer(Role.SUPERVISOR),
+                                               mainSupervisorId);
 
         randomUser2 = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
         randomUser2Id = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomUser2).id();
@@ -31,8 +36,8 @@ public class UpdatePlayerTests extends BasePlayerTest {
         }
     }
 
-    @Test(description = "Succesfully update player")
-    public void succesfullyUpdatePlayerTest() {
+    @Test(description = "Successfully update player")
+    public void successfullyUpdatePlayerTest() {
         var expectedPlayer = PlayerCreationalHelpers.withAge(randomAdmin, randomAdmin.age() + 2);
         var actualPlayer = PlayerSteps.updatePlayer(SUPERVISOR_LOGIN, randomAdminId, expectedPlayer);
 
@@ -40,10 +45,10 @@ public class UpdatePlayerTests extends BasePlayerTest {
         PlayerAsserts.assertPlayer(actualPlayer, expectedPlayer);
     }
 
-    @Test(description = "Succesfully update player by roles", dataProvider = "loginAndRolesForSuccessfulUpdate")
-    public void succesfullyUpdatePlayerByRolesTest(String loginWhoUpdate,
-                                                   Integer playerToUpdateId,
-                                                   Player playerToUpdate) {
+    @Test(description = "Successfully update player by roles", dataProvider = "loginAndRolesForSuccessfulUpdate")
+    public void successfullyUpdatePlayerByRolesTest(String loginWhoUpdate,
+                                                    Integer playerToUpdateId,
+                                                    Player playerToUpdate) {
         var expectedPlayer = PlayerCreationalHelpers.withAge(playerToUpdate, playerToUpdate.age() + 2);
         PlayerSteps.updatePlayer(loginWhoUpdate, playerToUpdateId, expectedPlayer);
     }
@@ -69,20 +74,20 @@ public class UpdatePlayerTests extends BasePlayerTest {
                 {
                         SUPERVISOR_LOGIN,
                         mainSupervisorId,
-                        PlayerCreationalHelpers.withId(PlayerCreationalHelpers.createSuccessRandomPlayer(Role.SUPERVISOR),
-                                                       mainSupervisorId)
+                        supervisorToUpdate
                 },
         };
     }
 
     @Test(description = "Failed update player by roles")
-    public void failedUpdatePlayeByRolesTest() {
+    public void failedUpdatePlayerByRolesTest() {
         var expectedPlayer = PlayerCreationalHelpers.withAge(randomAdmin, randomAdmin.age() + 2);
         PlayerSteps.updatePlayer(SUPERVISOR_LOGIN, randomAdminId, expectedPlayer);
     }
 
     @DataProvider
     public Object[][] loginAndRolesForFailedUpdate() {
+
         return new Object[][]{
                 {
                         ADMIN_LOGIN,
@@ -92,14 +97,12 @@ public class UpdatePlayerTests extends BasePlayerTest {
                 {
                         ADMIN_LOGIN,
                         mainSupervisorId,
-                        PlayerCreationalHelpers.withId(PlayerCreationalHelpers.createSuccessRandomPlayer(Role.SUPERVISOR),
-                                                       mainSupervisorId)
+                        supervisorToUpdate
                 },
                 {
                         randomUser.login(),
                         mainSupervisorId,
-                        PlayerCreationalHelpers.withId(PlayerCreationalHelpers.createSuccessRandomPlayer(Role.SUPERVISOR),
-                                                       mainSupervisorId)
+                        supervisorToUpdate
                 },
                 {
                         randomUser.login(),
