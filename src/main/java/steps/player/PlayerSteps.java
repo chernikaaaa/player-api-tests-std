@@ -58,7 +58,7 @@ public class PlayerSteps {
     }
 
     @Step("Get all players")
-    public static List<Player> getAllPlayers() {
+    public static List<AllPlayersResponse.AllPlayerResponseItem> getAllPlayers() {
         return PlayerApi.getAll().as(AllPlayersResponse.class).players();
     }
 
