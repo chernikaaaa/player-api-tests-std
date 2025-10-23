@@ -62,7 +62,7 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
     @Test(description = "Player with incorrect password length can not be created", dataProvider = "notValidPasswordLength")
     public void playerWithIncorrectPasswordLengthCanNotBeCreated(int notValidPasswordLength) {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
-        //TODO when all of these tests will work we can move newPlayer template to  @BeforeClass because it isn't created in these tests
+        //TODO when all of these tests will work we can move newPlayer template to @BeforeClass because it isn't created in these tests
         // so we can reuse it and reduce code duplication
         newPlayer = PlayerCreationalHelpers.withPassword(newPlayer,
                                                          Utils.getRandomStringWithLettersAndNumbers(
@@ -139,7 +139,7 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
         mapWithoutAge.remove("login");
 
         var mapWithIntLogin = new HashMap<>(randomPlayerData);
-        mapWithoutAge.put("login", 4); //TODO add random int generation
+        mapWithoutAge.put("login", Utils.getRandomInt());
 
         var mapWithoutPass = new HashMap<>(randomPlayerData);
         mapWithoutAge.remove("pass");
@@ -151,7 +151,7 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
         mapWithoutAge.remove("screenName");
 
         var mapWithNumScreenName = new HashMap<>(randomPlayerData);
-        mapWithoutAge.put("screenName", 4);  //TODO add random int generation
+        mapWithoutAge.put("screenName", Utils.getRandomInt());
 
         return new Object[][]{
                 {mapWithoutAge},

@@ -26,7 +26,7 @@ public class PlayerSteps {
         PlayerAsserts.assertPlayer(createdPlayer, newPlayer);
     }
 
-    @Step("Create player") //TODO add step more detailed description
+    @Step("Create player successfully")
     public static Player createPlayer(String editor, Player newPlayer) {
         var playerParams = PlayerUtils.buildMapParamsFromPlayerObject(newPlayer);
         return PlayerApi.create(editor, playerParams).statusCode(200).extract().as(Player.class);

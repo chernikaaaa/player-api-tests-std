@@ -32,7 +32,7 @@ public class PlayerCreationalHelpers {
     }
 
     public static Player withAge(Player player, Integer age) {
-        return new Player(age, //TODO change to use creation random player
+        return new Player(age,
                           player.gender(),
                           player.id(),
                           player.login(),

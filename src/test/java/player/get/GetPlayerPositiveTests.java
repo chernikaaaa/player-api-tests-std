@@ -13,5 +13,5 @@ public class GetPlayerPositiveTests extends BasePlayerTest {
         PlayerAsserts.assertPlayer(returnedPlayer, randomAdmin);
     }
 
-    //TODO delete 201 code created from spec
+    //TODO delete 201 code mentioned in spec
 }

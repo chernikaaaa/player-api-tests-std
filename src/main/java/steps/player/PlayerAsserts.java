@@ -25,27 +25,36 @@ public class PlayerAsserts {
 
     @Step("Assert ids equals")
     public static void assertIdsEquals(Player actualPlayer, Integer expectedId) {
-        Assert.assertNotNull(actualPlayer.id(), "ID should not be null");
-        Assert.assertEquals(actualPlayer.id(), expectedId, "ID should be equals to updated one");
+        Assert.assertNotNull(actualPlayer.id(), "Player id should not be null");
+        Assert.assertEquals(actualPlayer.id(), expectedId, "Player id should be as expected");
     }
 
     public static void assertPlayer(Player actualPlayer, Player expectedPlayer) {
         var age = expectedPlayer.age();
         SoftAssert softAssert = new SoftAssert();
 
-        softAssert.assertEquals(actualPlayer.age(), age, "Age mismatch"); //TODO change msgs
-        softAssert.assertEquals(actualPlayer.gender(), expectedPlayer.gender(), "Gender mismatch");
-        softAssert.assertEquals(actualPlayer.login(), expectedPlayer.login(), "Login mismatch");
-        softAssert.assertEquals(actualPlayer.role(), expectedPlayer.role(), "Role mismatch");
-        softAssert.assertEquals(actualPlayer.screenName(), expectedPlayer.screenName(), "ScreenName mismatch");
+        softAssert.assertEquals(actualPlayer.age(), age, "Player age should be as in expected player");
+        softAssert.assertEquals(actualPlayer.gender(),
+                                expectedPlayer.gender(),
+                                "Player gender should be as in expected player");
+        softAssert.assertEquals(actualPlayer.login(),
+                                expectedPlayer.login(),
+                                "Player login should be as in expected player");
+        softAssert.assertEquals(actualPlayer.role(),
+                                expectedPlayer.role(),
+                                "Player role should be as in expected player");
+        softAssert.assertEquals(actualPlayer.screenName(),
+                                expectedPlayer.screenName(),
+                                "Player screenName should be as in expected player");
 //        softAssert.assertNull(actualPlayer.password(),
-//                              "Password should be null"); //for security reasons return password in reponse is not ok
+//                              "Player password should be as in expected player");
+// for security reasons return password in reponse is not ok
         softAssert.assertAll();
     }
 
     public static void assertPlayerId(Player actualPlayer) {
-        Assert.assertNotNull(actualPlayer.id(), "ID should not be null");
-        Assert.assertTrue(actualPlayer.id() > 0, "ID should be positive");
+        Assert.assertNotNull(actualPlayer.id(), "Player id should not be null");
+        Assert.assertTrue(actualPlayer.id() > 0, "Player id should be greater than 0");
     }
 
     private static void assertThereAreNotDuplicatedScreenNameInPlayers(List<AllPlayersResponse.AllPlayerResponseItem> allPlayers) {
@@ -53,7 +62,7 @@ public class PlayerAsserts {
                                                 .map(player -> player.screenName())
                                                 .distinct()
                                                 .count() != allPlayers.size();
-        Assert.assertFalse(hasDuplicateScreenNames, "Duplicate player screenName found");
+        Assert.assertFalse(hasDuplicateScreenNames, "Duplicate player screen names should not be found");
     }
 
     private static void assertThereAreNotDuplicatedIdsInPlayers(List<AllPlayersResponse.AllPlayerResponseItem> allPlayers) {
@@ -61,14 +70,14 @@ public class PlayerAsserts {
                                         .map(player -> player.id())
                                         .distinct()
                                         .count() != allPlayers.size();
-        Assert.assertFalse(hasDuplicateIds, "Duplicate player IDs found");
+        Assert.assertFalse(hasDuplicateIds, "Duplicate player ids should not be found");
     }
 
     private static void assertThereAreNotFullDuplicatesInPlayers(List<AllPlayersResponse.AllPlayerResponseItem> allPlayers) {
         var disctinctedCount = allPlayers.stream().distinct().count();
         Assert.assertEquals(allPlayers.size(),
                             disctinctedCount,
-                            "There should not be duplicated players in the get all response");
+                            "Duplicate full player records should not be found");
     }
 
     private static void assertExpectedPlayersFoundInList(List<AllPlayersResponse.AllPlayerResponseItem> allPlayers,

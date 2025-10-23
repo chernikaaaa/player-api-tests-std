@@ -9,18 +9,24 @@ import org.testng.annotations.Test;
 import player.BasePlayerTest;
 import steps.player.PlayerSteps;
 import utils.Utils;
+import utils.player.PlayerUtils;
 
 import java.util.UUID;
 
 public class CreatePlayerPositiveTests extends BasePlayerTest {
 
     @Test(description = "Supervisor can create user with valid data", dataProvider = "playerValidData")
-    public void supervisorCreatesUserTest(String creatorLogin, int age, int passLength, Gender gender, Role role) {
+    public void supervisorCreatesUserTest(String creatorLogin,
+                                          int age,
+                                          int passLength,
+                                          Gender gender,
+                                          Role role,
+                                          String password) {
         var newPlayer = new Player(age,
                                    gender.getGender(),
                                    null,
                                    UUID.randomUUID().toString(),
-                                   Utils.getRandomStringWithLettersAndNumbers(passLength),
+                                   password,
                                    role.getRole(),
                                    UUID.randomUUID().toString());
         PlayerSteps.createPlayerAndValidateSuccessResponse(creatorLogin, newPlayer);
@@ -38,8 +44,10 @@ public class CreatePlayerPositiveTests extends BasePlayerTest {
                         //boundary positive min pass length
                         Gender.MALE,
                         // positive gender choice
-                        Role.USER
+                        Role.USER,
                         // role of created user
+                        Utils.getRandomStringOnlyWithLetters(PlayerUtils.getRandomPassLength())
+                        // password with only letters
                 },
                 {
                         ADMIN_LOGIN,
@@ -50,8 +58,10 @@ public class CreatePlayerPositiveTests extends BasePlayerTest {
                         //boundary positive max pass length
                         Gender.FEMALE,
                         // positive gender choice
-                        Role.ADMIN
+                        Role.ADMIN,
                         // role of created user
+                        Utils.getRandomStringOnlyWithNumbers(PlayerUtils.getRandomPassLength())
+                        // password with only nums
                 },
         };
     }
