@@ -54,14 +54,10 @@ public final class PlayerUtils {
     }
 
     public static String getRandomPassWithRandomLength() {
-        var randomPassLength = getRandomPassLength();
-        return Utils.getRandomStringWithLettersAndNumbers(randomPassLength);
-    }
-
-    public static int getRandomPassLength() {
         var minPassLength = 7;
         var maxPassLength = 15; //TODO to some enum or something
-        return minPassLength + RANDOM.nextInt(maxPassLength - minPassLength + 1);
+        var randomPassLength = minPassLength + RANDOM.nextInt(maxPassLength - minPassLength + 1);
+        return Utils.getRandomStringWithLettersAndNumbers(randomPassLength);
     }
 
 }
