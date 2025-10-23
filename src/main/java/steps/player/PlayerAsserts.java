@@ -23,7 +23,7 @@ public class PlayerAsserts {
         softAssert.assertAll();
     }
 
-    public static void assertPlayerId(Player actualPlayer, Player expectedPlayer) {
+    public static void assertPlayerId(Player actualPlayer) {
         Assert.assertNotNull(actualPlayer.id(), "ID should not be null");
         Assert.assertTrue(actualPlayer.id() > 0, "ID should be positive");
     }

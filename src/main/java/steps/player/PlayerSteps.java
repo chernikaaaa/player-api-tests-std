@@ -21,7 +21,7 @@ public class PlayerSteps {
     public static void createPlayerAndValidateSuccessResponse(String editor, Player newPlayer) {
         var createdPlayer = createPlayer(editor, newPlayer);
 
-        PlayerAsserts.assertPlayerId(createdPlayer, newPlayer);
+        PlayerAsserts.assertPlayerId(newPlayer);
         PlayerAsserts.assertPlayer(createdPlayer, newPlayer);
     }
 
