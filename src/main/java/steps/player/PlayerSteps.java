@@ -25,7 +25,7 @@ public class PlayerSteps {
         //TODO add check that id isnot in all players list
     }
 
-    @Step("Create player") //todo add step more detailed description
+    @Step("Create player") //TODO add step more detailed description
     public static Player createPlayer(String editor, Player newPlayer) {
         var playerParams = PlayerUtils.buildMapParamsFromPlayerObject(newPlayer);
         return PlayerApi.create(editor, playerParams).statusCode(200).extract().as(Player.class);

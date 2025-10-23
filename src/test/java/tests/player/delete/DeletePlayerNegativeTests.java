@@ -20,7 +20,7 @@ public class DeletePlayerNegativeTests extends BasePlayerTest {
     protected void setupPreconditions() {
         super.setupPreconditions();
 
-        //todo uncomment under code when roles and logins will be present in get all response
+        //TODO uncomment under code when roles and logins will be present in get all response
 //        mainSupervisorId = PlayerApi.getAll().as(AllPlayersResponse.class).getPlayers()
 //                                          .stream()
 //                                          .filter(player -> player.login().equals(SUPERVISOR_LOGIN))
@@ -82,7 +82,7 @@ public class DeletePlayerNegativeTests extends BasePlayerTest {
 
     @Test(description = "Unauthorized user cannot delete  users")
     public void unauthorizedCannotDeleteUser() {
-        //todo cannot be deployed due to lack of unauthenticated access in api
+        //TODO cannot be deployed due to lack of unauthenticated access in api
     }
 
     @Test(description = "Failed delete by incorrect id test")

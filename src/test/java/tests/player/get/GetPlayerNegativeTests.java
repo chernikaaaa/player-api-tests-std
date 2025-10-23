@@ -13,12 +13,12 @@ public class GetPlayerNegativeTests extends BasePlayerTest {
 
     @Test(description = "Unauthorized user cannot delete  users")
     public void unauthorizedCannotDeleteUser() {
-        //todo cannot be deployed due to lack of unauthenticated access in api
+        //TODO cannot be deployed due to lack of unauthenticated access in api
     }
 
     @Test(description = "Forbidden user cannot delete  users")
     public void forbiddenCannotDeleteUser() {
-        //todo cannot be deployed due to lack of user mention in request
+        //TODO cannot be deployed due to lack of user mention in request
     }
 
     //TODO also there should be such tests if we would have user authoization and authication

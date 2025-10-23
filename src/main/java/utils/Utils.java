@@ -13,8 +13,8 @@ public final class Utils {
     }
 
     public static String getRandomString(int length) {
-        //todo make check that at least one char and one num and one letter is present
-        //todo reuse alpha in other methods
+        //TODO make check that at least one char and one num and one letter is present
+        //TODO reuse alpha in other methods
         var allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-";
         return IntStream.range(0, length)
                         .mapToObj(i -> String.valueOf(allowedChars.charAt(RANDOM.nextInt(allowedChars.length()))))
@@ -29,7 +29,7 @@ public final class Utils {
     }
 
     public static String getRandomStringWithLettersAndNumbers(int length) {
-        //todo make check that at least one num and one letter is present
+        //TODO make check that at least one num and one letter is present
         var allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         return IntStream.range(0, length)
                         .mapToObj(i -> String.valueOf(allowedChars.charAt(RANDOM.nextInt(allowedChars.length()))))
