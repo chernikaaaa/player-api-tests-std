@@ -8,16 +8,16 @@ public class GetPlayerNegativeTests extends BasePlayerTest {
 
     @Test(description = "Cannot get unexisting user")
     public void canNotGetUnExistingTest() {
-        PlayerSteps.getWithErrorAndMessage(generateNextPlayerId(), "player not found error");
+        PlayerSteps.getPlayerWithErrorAndMessage(generateNextPlayerId(), "player not found error");
     }
 
     @Test(description = "Unauthorized user cannot delete  users")
-    public void unauthorizedCannotDeleteUser() {
+    public void unauthorizedCannotDeleteUserTest() {
         //TODO cannot be deployed due to lack of unauthenticated access in api
     }
 
     @Test(description = "Forbidden user cannot delete  users")
-    public void forbiddenCannotDeleteUser() {
+    public void forbiddenCannotDeleteUserTest() {
         //TODO cannot be deployed due to lack of user mention in request
     }
 

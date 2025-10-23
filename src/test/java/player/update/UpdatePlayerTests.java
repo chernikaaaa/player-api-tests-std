@@ -37,7 +37,7 @@ public class UpdatePlayerTests extends BasePlayerTest {
         var actualPlayer = PlayerSteps.updatePlayer(SUPERVISOR_LOGIN, randomAdminId, expectedPlayer);
 
         PlayerAsserts.assertIdsEquals(actualPlayer, randomAdminId);
-        PlayerAsserts.assertPlayer(actualPlayer, expectedPlayer);
+        PlayerAsserts.assertPlayerDetails(actualPlayer, expectedPlayer);
     }
 
     @Test(description = "Successfully update player by roles", dataProvider = "loginAndRolesForSuccessfulUpdate")

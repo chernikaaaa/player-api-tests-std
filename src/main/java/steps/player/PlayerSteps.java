@@ -23,7 +23,7 @@ public class PlayerSteps {
         var createdPlayer = createPlayer(editor, newPlayer);
 
         PlayerAsserts.assertPlayerId(newPlayer);
-        PlayerAsserts.assertPlayer(createdPlayer, newPlayer);
+        PlayerAsserts.assertPlayerDetails(createdPlayer, newPlayer);
     }
 
     @Step("Create player successfully")
@@ -43,12 +43,9 @@ public class PlayerSteps {
                                                                 Player newPlayer,
                                                                 String expectedMessage) {
         var response = createPlayerWithError(editor, newPlayer, 404);
-        // but in  doc we don't have 404 error but we should handle incorrect data,
-        // we have only 404 but it is for not founding resource for example when player with such login isn't founded
-
+        // but in doc we don't have 404 error, but we should handle incorrect data,
         var message = response.jsonPath().getString("message");
-
-        ErrorAsserts.assertErroMessage(message, expectedMessage);
+        ErrorAsserts.assertErrorMessage(message, expectedMessage);
     }
 
     @Step("Create player with expected error")
@@ -59,8 +56,11 @@ public class PlayerSteps {
 
     @Step("Delete player with expected error and message")
     public static void deletePlayerWithErrorAndMessage(String editor, Integer playerId, String expectedMessage) {
-        var actualMessage =
-                deletePlayerWithError(editor, playerId, 404).extract().response().jsonPath().getString("message");
+        var actualMessage = deletePlayerWithError(editor, playerId, 404)
+                .extract()
+                .response()
+                .jsonPath()
+                .getString("message");
         Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
     }
 
@@ -84,19 +84,19 @@ public class PlayerSteps {
     }
 
     @Step("Get player with expected error")
-    public static ValidatableResponse getWithError(Integer playerId,
-                                                   Integer expectedStatusCode) {
+    public static ValidatableResponse getPlayerWithError(Integer playerId,
+                                                         Integer expectedStatusCode) {
         return PlayerApi.get(playerId).statusCode(expectedStatusCode);
     }
 
     @Step("Get player with expected error and message")
-    public static void getWithErrorAndMessage(Integer playerId, String expectedMessage) {
-        var actualMessage = getWithError(playerId, 404).extract().response().jsonPath().getString("message");
+    public static void getPlayerWithErrorAndMessage(Integer playerId, String expectedMessage) {
+        var actualMessage = getPlayerWithError(playerId, 404).extract().response().jsonPath().getString("message");
         Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
     }
 
-    @Step("Get player with successfully")
-    public static Player get(Integer playerId) {
+    @Step("Get player successfully")
+    public static Player getPlayer(Integer playerId) {
         return PlayerApi.get(playerId).statusCode(200).extract().response().as(Player.class);
     }
 

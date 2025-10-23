@@ -9,13 +9,13 @@ import steps.player.PlayerSteps;
 public class CreatePlayerAccessesNegativeTests extends BasePlayerTest {
 
     @Test(description = "User cannot create new users")
-    public void userCanNotCreateUser() {
+    public void userCanNotCreateUserTest() {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
         PlayerSteps.createPlayerWithError(randomUser.login(), newPlayer, 403);
     }
 
     @Test(description = "Admin cannot create supervisor")
-    public void adminCanNotCreateSupervisor() {
+    public void adminCanNotCreateSupervisorTest() {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.SUPERVISOR);
         PlayerSteps.createPlayerAndValidateBadRequestMessage(ADMIN_LOGIN,
                                                              newPlayer,
@@ -23,7 +23,7 @@ public class CreatePlayerAccessesNegativeTests extends BasePlayerTest {
     }
 
     @Test(description = "Unauthorized user cannot create new users")
-    public void unauthorizedCannotCreateUser() {
+    public void unauthorizedCannotCreateUserTest() {
         //TODO cannot be deployed due to lack of unauthenticated access in api
     }
 

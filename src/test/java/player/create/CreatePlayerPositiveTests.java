@@ -57,7 +57,7 @@ public class CreatePlayerPositiveTests extends BasePlayerTest {
     }
 
     @Test(description = "Created admin (not already created admin with ADMIN login) can create users")
-    public void createdAdminCanCreateAnotherUser() {
+    public void createdAdminCanCreateAnotherUserTest() {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         PlayerSteps.createPlayer(randomAdmin.login(), newPlayer);
     }

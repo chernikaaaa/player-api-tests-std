@@ -41,16 +41,6 @@ public class PlayerCreationalHelpers {
                           player.screenName());
     }
 
-    public static Player withId(Player player, Integer id) {
-        return new Player(player.age(),
-                          player.gender(),
-                          id,
-                          player.login(),
-                          player.password(),
-                          player.role(),
-                          player.screenName());
-    }
-
     public static Player withGender(Player player, String gender) {
         return new Player(player.age(),
                           gender,
@@ -78,16 +68,6 @@ public class PlayerCreationalHelpers {
                           player.login(),
                           password,
                           player.role(),
-                          player.screenName());
-    }
-
-    public Player withRole(Player player, String role) {
-        return new Player(player.age(),
-                          player.gender(),
-                          player.id(),
-                          player.login(),
-                          player.password(),
-                          role,
                           player.screenName());
     }
 

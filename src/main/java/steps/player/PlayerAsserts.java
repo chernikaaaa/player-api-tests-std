@@ -2,7 +2,6 @@ package steps.player;
 
 import api.player.models.AllPlayersResponse;
 import api.player.models.Player;
-import io.qameta.allure.Step;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import utils.BaseUtility;
@@ -23,13 +22,12 @@ public class PlayerAsserts {
         assertThereAreNotDuplicatedScreenNameInPlayers(allPlayers);
     }
 
-    @Step("Assert ids equals")
     public static void assertIdsEquals(Player actualPlayer, Integer expectedId) {
         Assert.assertNotNull(actualPlayer.id(), "Player id should not be null");
         Assert.assertEquals(actualPlayer.id(), expectedId, "Player id should be as expected");
     }
 
-    public static void assertPlayer(Player actualPlayer, Player expectedPlayer) {
+    public static void assertPlayerDetails(Player actualPlayer, Player expectedPlayer) {
         var age = expectedPlayer.age();
         SoftAssert softAssert = new SoftAssert();
 
@@ -59,7 +57,7 @@ public class PlayerAsserts {
 
     private static void assertThereAreNotDuplicatedScreenNameInPlayers(List<AllPlayersResponse.AllPlayerResponseItem> allPlayers) {
         var hasDuplicateScreenNames = allPlayers.stream()
-                                                .map(player -> player.screenName())
+                                                .map(AllPlayersResponse.AllPlayerResponseItem::screenName)
                                                 .distinct()
                                                 .count() != allPlayers.size();
         Assert.assertFalse(hasDuplicateScreenNames, "Duplicate player screen names should not be found");
@@ -67,22 +65,22 @@ public class PlayerAsserts {
 
     private static void assertThereAreNotDuplicatedIdsInPlayers(List<AllPlayersResponse.AllPlayerResponseItem> allPlayers) {
         var hasDuplicateIds = allPlayers.stream()
-                                        .map(player -> player.id())
+                                        .map(AllPlayersResponse.AllPlayerResponseItem::id)
                                         .distinct()
                                         .count() != allPlayers.size();
         Assert.assertFalse(hasDuplicateIds, "Duplicate player ids should not be found");
     }
 
     private static void assertThereAreNotFullDuplicatesInPlayers(List<AllPlayersResponse.AllPlayerResponseItem> allPlayers) {
-        var disctinctedCount = allPlayers.stream().distinct().count();
+        var countWithoutDuplicates = allPlayers.stream().distinct().count();
         Assert.assertEquals(allPlayers.size(),
-                            disctinctedCount,
+                            countWithoutDuplicates,
                             "Duplicate full player records should not be found");
     }
 
     private static void assertExpectedPlayersFoundInList(List<AllPlayersResponse.AllPlayerResponseItem> allPlayers,
                                                          List<Integer> expectedPlayerIds) {
-        var playerIds = allPlayers.stream().map(player -> player.id()).toList();
+        var playerIds = allPlayers.stream().map(AllPlayersResponse.AllPlayerResponseItem::id).toList();
         Assert.assertTrue(playerIds.containsAll(expectedPlayerIds),
                           "Player ids from get all list should contain created players");
     }

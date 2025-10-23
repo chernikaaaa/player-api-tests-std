@@ -9,9 +9,9 @@ public class ErrorAsserts {
         BaseUtility.getException();
     }
 
-    public static void assertErroMessage(String actualMessage, String expectedMessage) {
+    public static void assertErrorMessage(String actualMessage, String expectedMessage) {
         Assert.assertNotNull(actualMessage, "Error message should be present in response");
-        Assert.assertEquals(actualMessage, expectedMessage, "Error message should = " + expectedMessage);
+        Assert.assertEquals(actualMessage, expectedMessage, "Error message should be as expected");
     }
 
 }

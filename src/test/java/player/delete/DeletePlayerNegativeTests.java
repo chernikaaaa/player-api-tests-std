@@ -72,7 +72,7 @@ public class DeletePlayerNegativeTests extends BasePlayerTest {
     }
 
     @Test(description = "Unauthorized user cannot delete  users")
-    public void unauthorizedCannotDeleteUser() {
+    public void unauthorizedCannotDeleteUserTest() {
         //TODO cannot be deployed due to lack of unauthenticated access in api
     }
 

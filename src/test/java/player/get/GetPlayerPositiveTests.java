@@ -9,8 +9,8 @@ public class GetPlayerPositiveTests extends BasePlayerTest {
 
     @Test(description = "Get existing user successfully")
     public void getUserSuccessfullTest() {
-        var returnedPlayer = PlayerSteps.get(randomAdminId);
-        PlayerAsserts.assertPlayer(returnedPlayer, randomAdmin);
+        var returnedPlayer = PlayerSteps.getPlayer(randomAdminId);
+        PlayerAsserts.assertPlayerDetails(returnedPlayer, randomAdmin);
     }
 
     //TODO delete 201 code mentioned in spec
