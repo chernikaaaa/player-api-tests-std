@@ -32,7 +32,7 @@ public class UpdatePlayerTests extends BasePlayerTest {
         }
     }
 
-    @Test(description = "Successfully update player")
+    @Test(description = "successfully update player")
     public void successfullyUpdatePlayerTest() {
         var expectedPlayer = PlayerCreationalHelpers.withAge(randomAdmin, randomAdmin.age() + 2);
         var actualPlayer = PlayerSteps.updatePlayer(SUPERVISOR_LOGIN, randomAdminId, expectedPlayer);
@@ -41,7 +41,7 @@ public class UpdatePlayerTests extends BasePlayerTest {
         PlayerAsserts.assertPlayerDetails(actualPlayer, expectedPlayer);
     }
 
-    @Test(description = "Successfully update player by roles", dataProvider = "loginAndRolesForSuccessfulUpdate")
+    @Test(description = "successfully update player by roles", dataProvider = "loginAndRolesForSuccessfulUpdate")
     public void successfullyUpdatePlayerByRolesTest(String loginWhoUpdate,
                                                     Integer playerToUpdateId,
                                                     Player playerToUpdate) {

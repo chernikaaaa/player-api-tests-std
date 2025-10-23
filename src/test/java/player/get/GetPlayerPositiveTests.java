@@ -8,7 +8,7 @@ import steps.player.PlayerSteps;
 public class GetPlayerPositiveTests extends BasePlayerTest {
 
     @Test(description = "Get existing user successfully")
-    public void getUserSuccessfullTest() {
+    public void getUserSuccessfulTest() {
         var returnedPlayer = PlayerSteps.getPlayer(randomAdminId);
         PlayerAsserts.assertPlayerDetails(returnedPlayer, randomAdmin);
     }

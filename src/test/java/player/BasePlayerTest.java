@@ -1,5 +1,6 @@
 package player;
 
+import api.player.models.AllPlayersResponse;
 import api.player.models.Player;
 import enums.Role;
 import helpers.players.PlayerCreationalHelpers;
@@ -8,12 +9,12 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import steps.player.PlayerSteps;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.stream.Collectors;
 
-public class BasePlayerTest {
+public abstract class BasePlayerTest {
 
     protected Player randomAdmin;
     protected Integer randomAdminId;
@@ -21,7 +22,7 @@ public class BasePlayerTest {
     protected Integer randomUserId;
     protected static final String SUPERVISOR_LOGIN = "supervisor";
     protected static final String ADMIN_LOGIN = "admin";
-    protected List<Integer> toDeletePlayerIds;
+    protected ArrayList<Integer> toDeletePlayerIds = new ArrayList<>();
 
     @BeforeClass
     protected void setupPreconditions() {
@@ -45,7 +46,11 @@ public class BasePlayerTest {
     protected static int generateNextPlayerId() {
         var nextId = getMaxPlayerId() + 10;
 
-        while (PlayerSteps.getAllPlayers().stream().map(item -> item.id()).toList().contains(nextId)) {
+        while (PlayerSteps.getAllPlayers()
+                          .stream()
+                          .map(AllPlayersResponse.AllPlayerResponseItem::id)
+                          .toList()
+                          .contains(nextId)) {
             nextId += 10;
         }
 
@@ -56,7 +61,7 @@ public class BasePlayerTest {
     private static Integer getMaxPlayerId() {
         return PlayerSteps.getAllPlayers()
                           .stream()
-                          .sorted(Comparator.comparing(player -> player.id()))
+                          .sorted(Comparator.comparing(AllPlayersResponse.AllPlayerResponseItem::id))
                           .collect(Collectors.toCollection(LinkedList::new))
                           .getLast()
                           .id();
