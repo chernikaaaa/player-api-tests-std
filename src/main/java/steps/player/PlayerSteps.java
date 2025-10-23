@@ -31,6 +31,12 @@ public class PlayerSteps {
         return PlayerApi.create(editor, playerParams).statusCode(200).extract().as(Player.class);
     }
 
+    @Step("Update player")
+    public static Player updatePlayer(String editor, Integer id, Player udpatedPlayer) {
+        var playerParams = PlayerUtils.buildMapParamsFromPlayerObject(udpatedPlayer);
+        return PlayerApi.update(editor, id, playerParams).statusCode(200).extract().as(Player.class);
+    }
+
     @Step("Create player and validate bad request")
     public static void createPlayerAndValidateBadRequestMessage(String editor,
                                                                 Player newPlayer,

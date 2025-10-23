@@ -1,6 +1,5 @@
 package tests.base;
 
-import api.player.PlayerApi;
 import api.player.models.Player;
 import enums.Role;
 import helpers.players.PlayerCreationalHelpers;
@@ -14,16 +13,25 @@ import java.util.stream.Collectors;
 
 public class BasePlayerTest {
 
+    protected Integer mainSupervisorId = 1;
     protected Player randomAdmin;
     protected Integer randomAdminId;
     protected Player randomUser;
     protected Integer randomUserId;
-    protected PlayerApi playerApi = new PlayerApi();
     protected static final String SUPERVISOR_LOGIN = "supervisor";
     protected static final String ADMIN_LOGIN = "admin";
 
     @BeforeClass
     protected void setupPreconditions() {
+
+        //TODO uncomment when get all will return roles
+//        mainSupervisorId = PlayerSteps.getAllPlayers()
+//                                      .stream()
+//                                      .filter(e -> e.role().equals(Role.SUPERVISOR.getRole()))
+//                                      .findFirst()
+//                                      .orElseThrow(() -> new NoSuchElementException("Supervisor should be presented"))
+//                                      .id();
+
         randomAdmin = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         randomAdminId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomAdmin).id();
         randomUser = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);

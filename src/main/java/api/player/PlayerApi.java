@@ -2,7 +2,6 @@ package api.player;
 
 import api.Client;
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 
 import java.util.Map;
@@ -49,7 +48,7 @@ public class PlayerApi extends Client {
     }
 
     @Step("Update user as {editor}, id={id}")
-    public static Response update(String editor, long id, Map<String, ?> body) {
+    public static ValidatableResponse update(String editor, long id, Map<String, ?> body) {
         return given()
                 .spec(spec)
                 .pathParam("editor", editor)
@@ -57,9 +56,7 @@ public class PlayerApi extends Client {
                 .body(body)
                 .when()
                 .patch("/player/update/{editor}/{id}")
-                .then()
-                .extract()
-                .response();
+                .then();
     }
 
 }

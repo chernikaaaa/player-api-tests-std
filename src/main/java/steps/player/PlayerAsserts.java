@@ -2,6 +2,7 @@ package steps.player;
 
 import api.player.models.AllPlayersResponse;
 import api.player.models.Player;
+import io.qameta.allure.Step;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -21,10 +22,17 @@ public class PlayerAsserts {
         assertThereAreNotDuplicatedScreenNameInPlayers(allPlayers);
     }
 
+    @Step("Assert ids equals")
+    public static void assertIdsEquals(Player actualPlayer, Integer expectedId) {
+        Assert.assertNotNull(actualPlayer.id(), "ID should not be null");
+        Assert.assertEquals(actualPlayer.id(), expectedId, "ID should be equals to updated one");
+    }
+
     public static void assertPlayer(Player actualPlayer, Player expectedPlayer) {
+        var age = expectedPlayer.age();
         SoftAssert softAssert = new SoftAssert();
 
-        softAssert.assertEquals(actualPlayer.age(), expectedPlayer.age(), "Age mismatch"); //TODO change msgs
+        softAssert.assertEquals(actualPlayer.age(), age, "Age mismatch"); //TODO change msgs
         softAssert.assertEquals(actualPlayer.gender(), expectedPlayer.gender(), "Gender mismatch");
         softAssert.assertEquals(actualPlayer.login(), expectedPlayer.login(), "Login mismatch");
         softAssert.assertEquals(actualPlayer.role(), expectedPlayer.role(), "Role mismatch");

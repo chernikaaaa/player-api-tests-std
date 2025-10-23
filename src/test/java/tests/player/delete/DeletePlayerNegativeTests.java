@@ -13,20 +13,11 @@ public class DeletePlayerNegativeTests extends BasePlayerTest {
 
     private Player userWhoDelete;
     private Integer randomUserId2;
-    private Integer mainSupervisorId = 1;
 
     @BeforeClass
     @Override
     protected void setupPreconditions() {
         super.setupPreconditions();
-
-        //TODO uncomment under code when roles and logins will be present in get all response
-//        mainSupervisorId = PlayerApi.getAll().as(AllPlayersResponse.class).getPlayers()
-//                                          .stream()
-//                                          .filter(player -> player.login().equals(SUPERVISOR_LOGIN))
-//                                          .findFirst()
-//                                          .orElseThrow(() -> new NoSuchElementException("No supervisor found"))
-//                                          .id();
 
         userWhoDelete = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
         PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userWhoDelete);
