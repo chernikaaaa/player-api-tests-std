@@ -22,6 +22,7 @@ public class UpdatePlayerTests extends BasePlayerTest {
 
         randomUser2 = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
         randomUser2Id = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomUser2).id();
+        toDeletePlayerIds.add(randomUser2Id);
 
         //TODO add waiter with check db that user is created (instead I use sleep but it is a bad practice)
         try {

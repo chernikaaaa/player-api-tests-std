@@ -4,11 +4,13 @@ import api.player.models.Player;
 import enums.Role;
 import helpers.players.PlayerCreationalHelpers;
 import io.qameta.allure.Step;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import steps.player.PlayerSteps;
 
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class BasePlayerTest {
@@ -19,13 +21,17 @@ public class BasePlayerTest {
     protected Integer randomUserId;
     protected static final String SUPERVISOR_LOGIN = "supervisor";
     protected static final String ADMIN_LOGIN = "admin";
+    protected List<Integer> toDeletePlayerIds;
 
     @BeforeClass
     protected void setupPreconditions() {
         randomAdmin = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         randomAdminId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomAdmin).id();
+        toDeletePlayerIds.add(randomAdminId);
+
         randomUser = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
         randomUserId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomUser).id();
+        toDeletePlayerIds.add(randomUserId);
 
         //TODO add waiter with check db that user is created (instead I use sleep but it is a bad practice)
         try {
@@ -54,6 +60,14 @@ public class BasePlayerTest {
                           .collect(Collectors.toCollection(LinkedList::new))
                           .getLast()
                           .id();
+    }
+
+    @AfterSuite(alwaysRun = true)
+    public void cleanupCreatedPlayers() {
+        toDeletePlayerIds.forEach(toDeletePlayerId -> {
+            PlayerSteps.deletePlayer(SUPERVISOR_LOGIN, toDeletePlayerId);
+            //TODO add check that all players are deleted from db
+        });
     }
 
 }

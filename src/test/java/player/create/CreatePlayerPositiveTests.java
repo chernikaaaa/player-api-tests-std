@@ -23,7 +23,8 @@ public class CreatePlayerPositiveTests extends BasePlayerTest {
                                    password,
                                    role.getRole(),
                                    UUID.randomUUID().toString());
-        PlayerSteps.createPlayerAndValidateSuccessResponse(creatorLogin, newPlayer);
+        var createdPlayer = PlayerSteps.createPlayerAndValidateSuccessResponse(creatorLogin, newPlayer);
+        toDeletePlayerIds.add(createdPlayer.id());
     }
 
     @DataProvider
@@ -59,7 +60,8 @@ public class CreatePlayerPositiveTests extends BasePlayerTest {
     @Test(description = "Created admin (not already created admin with ADMIN login) can create users")
     public void createdAdminCanCreateAnotherUserTest() {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
-        PlayerSteps.createPlayer(randomAdmin.login(), newPlayer);
+        var playerId = PlayerSteps.createPlayer(randomAdmin.login(), newPlayer).id();
+        toDeletePlayerIds.add(playerId);
     }
 
 }

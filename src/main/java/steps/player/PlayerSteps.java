@@ -21,11 +21,12 @@ public class PlayerSteps {
     }
 
     @Step("Create player and validate success response")
-    public static void createPlayerAndValidateSuccessResponse(String editor, Player newPlayer) {
+    public static Player createPlayerAndValidateSuccessResponse(String editor, Player newPlayer) {
         var createdPlayer = createPlayer(editor, newPlayer);
 
         PlayerAsserts.assertPlayerId(newPlayer);
         PlayerAsserts.assertPlayerDetails(createdPlayer, newPlayer);
+        return createdPlayer;
     }
 
     @Step("Create player successfully")

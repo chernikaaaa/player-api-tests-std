@@ -20,10 +20,12 @@ public class DeletePlayerNegativeTests extends BasePlayerTest {
         super.setupPreconditions();
 
         userWhoDelete = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
-        PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userWhoDelete);
+        var uerWhoDeleteId = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, userWhoDelete);
+        toDeletePlayerIds.add(uerWhoDeleteId.id());
 
         var randomUser2 = PlayerCreationalHelpers.createSuccessRandomPlayer(Role.USER);
         randomUserId2 = PlayerSteps.createPlayer(SUPERVISOR_LOGIN, randomUser2).id();
+        toDeletePlayerIds.add(randomUserId2);
 
         //TODO add waiter with check db that user is created (instead I use sleep but it is a bad practice)
 
