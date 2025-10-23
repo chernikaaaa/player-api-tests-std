@@ -57,13 +57,12 @@ public class PlayerSteps {
         return PlayerApi.create(editor, playerParams).statusCode(errorCode).extract().response();
     }
 
-    //TODO uncomment this when 404 code will be handled in api
-//    @Step("Delete player with expected error and message")
-//    public static void deletePlayerWithErrorAndMessage(String editor, Integer playerId, String expectedMessage) {
-//        var actualMessage =
-//                deletePlayerWithError(editor, playerId, 404).extract().response().jsonPath().getString("message");
-//        Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
-//    }
+    @Step("Delete player with expected error and message")
+    public static void deletePlayerWithErrorAndMessage(String editor, Integer playerId, String expectedMessage) {
+        var actualMessage =
+                deletePlayerWithError(editor, playerId, 404).extract().response().jsonPath().getString("message");
+        Assert.assertEquals(actualMessage, expectedMessage, "Message should be as expected");
+    }
 
     @Step("Get all players")
     public static List<AllPlayersResponse.AllPlayerResponseItem> getAllPlayers() {
@@ -79,7 +78,7 @@ public class PlayerSteps {
 
     @Step("Delete player with successfully")
     public static void deletePlayer(String editor, Integer playerId) {
-        //TODO should return 200 not 204, or if it would be agreeded with business 204 but need to delete 200 from spec
+        //TODO should return 200 not 204, or if it would be agreed with business 204 but need to delete 200 from spec
 //        return PlayerApi.delete(editor, playerId).statusCode(200).extract().response().as(DeleteResponseEntity.class);
         PlayerApi.delete(editor, playerId).statusCode(204);
     }

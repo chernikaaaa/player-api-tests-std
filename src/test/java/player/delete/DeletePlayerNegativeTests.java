@@ -84,7 +84,10 @@ public class DeletePlayerNegativeTests extends BasePlayerTest {
 
     @Test(description = "Failed delete by incorrect format id test")
     public void failedDeleteByIncorrectFormatIdTest() {
-        //TODO make method with inserting json to body not to model in order to use id as String
+        var nextPlayerId = generateNextPlayerId();
+        PlayerSteps.deletePlayerWithErrorAndMessage(SUPERVISOR_LOGIN,
+                                                    nextPlayerId,
+                                                    "Player with incorrect  id should not be deleted");
     }
 
 }

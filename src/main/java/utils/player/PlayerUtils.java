@@ -2,6 +2,7 @@ package utils.player;
 
 import api.player.models.Player;
 import enums.Gender;
+import enums.PlayerBoundaries;
 import utils.BaseUtility;
 import utils.Utils;
 
@@ -20,12 +21,10 @@ public final class PlayerUtils {
 
     public static String getRandomIncorrectGender() {
         var randomGender = Utils.getRandomStringOnlyWithLetters(4);
-        var finalRandomGender = randomGender;
-        while (Arrays.stream(Gender.values())
-                     .anyMatch(genderValue -> genderValue.getGender().equalsIgnoreCase(finalRandomGender))) {
+        while (Arrays.stream(Gender.values()).map(Gender::getGender).toList().contains(randomGender)) {
             randomGender = Utils.getRandomStringOnlyWithLetters(4);
         }
-        return finalRandomGender;
+        return randomGender;
     }
 
     public static Map<String, Serializable> buildMapParamsFromPlayerObject(Player player) {
@@ -48,15 +47,15 @@ public final class PlayerUtils {
     }
 
     public static int getRandomAge() {
-        var minAge = 17;
-        var maxAge = 59;
-        return RANDOM.nextInt(maxAge - minAge + 1) + minAge;
+        return RANDOM.nextInt(
+                PlayerBoundaries.MAX_AGE.getValue() - PlayerBoundaries.MIN_AGE.getValue() + 1)
+                + PlayerBoundaries.MIN_AGE.getValue();
     }
 
     public static String getRandomPassWithRandomLength() {
-        var minPassLength = 7;
-        var maxPassLength = 15; //TODO to some enum or something
-        var randomPassLength = minPassLength + RANDOM.nextInt(maxPassLength - minPassLength + 1);
+        var randomPassLength = PlayerBoundaries.MIN_PASS_LENGTH.getValue() + RANDOM.nextInt(
+                PlayerBoundaries.MAX_PASS_LENGTH.getValue()
+                        - PlayerBoundaries.MIN_PASS_LENGTH.getValue() + 1);
         return Utils.getRandomStringWithLettersAndNumbers(randomPassLength);
     }
 

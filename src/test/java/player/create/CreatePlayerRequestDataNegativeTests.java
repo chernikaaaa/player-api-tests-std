@@ -62,7 +62,8 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
     @Test(description = "Player with incorrect password length can not be created", dataProvider = "notValidPasswordLength")
     public void playerWithIncorrectPasswordLengthCanNotBeCreated(int notValidPasswordLength) {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
-        //TODO when all of these tests will work we can move newPlayer template to @BeforeClass because it isn't created in these tests
+        //TODO when all of these tests will work and won't create a player
+        // we can move newPlayer template to @BeforeClass because it isn't created in these tests
         // so we can reuse it and reduce code duplication
         newPlayer = PlayerCreationalHelpers.withPassword(newPlayer,
                                                          Utils.getRandomStringWithLettersAndNumbers(
