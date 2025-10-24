@@ -1,5 +1,6 @@
 package player.create;
 
+import api.PlayerApi;
 import api.player.models.Player;
 import enums.Gender;
 import enums.Role;
@@ -9,7 +10,10 @@ import org.testng.annotations.Test;
 import player.BasePlayerTest;
 import steps.player.PlayerSteps;
 import utils.Utils;
+import utils.player.PlayerUtils;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class CreatePlayerPositiveTests extends BasePlayerTest {
@@ -62,6 +66,31 @@ public class CreatePlayerPositiveTests extends BasePlayerTest {
         var newPlayer = PlayerCreationalHelpers.createSuccessRandomAdminPlayer();
         var playerId = PlayerSteps.createPlayer(randomAdmin.login(), newPlayer).id();
         toDeletePlayerIds.add(playerId);
+    }
+
+    @Test(description = "Create player without password")
+    public void createPlayerWithoutPasswordTest() {
+        var randomPlayerData = Map.of("age",
+                                      PlayerUtils.getRandomAge(),
+                                      "gender",
+                                      PlayerUtils.getRandomGender(),
+                                      "login",
+                                      UUID.randomUUID().toString(),
+                                      "password",
+                                      PlayerUtils.getRandomPassWithRandomLength(),
+                                      "role",
+                                      Role.USER.getRole(),
+                                      "screenName",
+                                      UUID.randomUUID().toString());
+
+        var mapWithoutPassword = new HashMap<>(randomPlayerData);
+        mapWithoutPassword.remove("password");
+
+        PlayerApi.create(SUPERVISOR_LOGIN, mapWithoutPassword)
+                 .statusCode(200)
+                 .extract()
+                 .response()
+                 .as(Player.class);
     }
 
 }
