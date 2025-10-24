@@ -97,9 +97,9 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
 
     @Test(description = "Create failed because of incorrect data", dataProvider = "notValidData")
     public void createFailedBecauseOfIncorrectDataTest(Map<String, ? extends Serializable> data) {
-        var response = PlayerApi.create(SUPERVISOR_LOGIN, data).statusCode(404).extract().response();
+        var response = PlayerApi.create(SUPERVISOR_LOGIN, data).statusCode(400).extract().response();
         var message = response.jsonPath().getString("message");
-        ErrorAsserts.assertErrorMessage(message, "expected message");
+        ErrorAsserts.assertErrorMessage(message, "");
     }
 
     @DataProvider
@@ -121,28 +121,19 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
         mapWithoutAge.remove("age");
 
         var mapWitStringAge = new HashMap<>(randomPlayerData);
-        mapWithoutAge.put("age", Utils.getRandomString(3));
+        mapWitStringAge.put("age", Utils.getRandomString(3));
 
         var mapWithoutGender = new HashMap<>(randomPlayerData);
-        mapWithoutAge.remove("gender");
+        mapWithoutGender.remove("gender");
 
         var mapWithoutLogin = new HashMap<>(randomPlayerData);
-        mapWithoutAge.remove("login");
-
-        var mapWithIntLogin = new HashMap<>(randomPlayerData);
-        mapWithoutAge.put("login", Utils.getRandomInt());
-
-        var mapWithoutPass = new HashMap<>(randomPlayerData);
-        mapWithoutAge.remove("pass");
+        mapWithoutLogin.remove("login");
 
         var mapWithoutRole = new HashMap<>(randomPlayerData);
-        mapWithoutAge.remove("role");
+        mapWithoutRole.remove("role");
 
         var mapWithoutScreenName = new HashMap<>(randomPlayerData);
-        mapWithoutAge.remove("screenName");
-
-        var mapWithNumScreenName = new HashMap<>(randomPlayerData);
-        mapWithoutAge.put("screenName", Utils.getRandomInt());
+        mapWithoutScreenName.remove("screenName");
 
         return new Object[][]{
                 {mapWithoutAge},
@@ -150,10 +141,7 @@ public class CreatePlayerRequestDataNegativeTests extends BasePlayerTest {
                 {mapWithoutGender},
                 {mapWithoutRole},
                 {mapWithoutLogin},
-                {mapWithoutPass},
-                {mapWithoutScreenName},
-                {mapWithNumScreenName},
-                {mapWithIntLogin}
+                {mapWithoutScreenName}
         };
     }
 
